@@ -1,0 +1,20 @@
+# Application
+dist/
+node_modules/
+actual-data/
+
+# Secrets
+.env
+
+# Database files
+*.db
+
+# OS
+.DS_Store
+
+# IDE
+.vscode/
+.idea/
+
+# Test coverage
+coverage/

@@ -1,0 +1,67 @@
+services:
+
+  # ─── Dev service ────────────────────────────────────────────────────────────
+  # Use for all local development commands:
+  #   docker compose run --rm dev npm install
+  #   docker compose run --rm dev npm run test:unit
+  #   docker compose run --rm dev npm run build
+  dev:
+    image: node:22-alpine
+    volumes:
+      - .:/app
+    working_dir: /app
+    network_mode: host
+    environment:
+      - NODE_ENV=development
+      - LOG_LEVEL=${LOG_LEVEL:-debug}
+    # No restart — only used via `docker compose run`
+
+  # ─── Playwright service (fixture capture + fixture tests) ───────────────────
+  # Use for: capturing HTML fixtures from live portals, running fixture tests
+  #   docker compose run --rm playwright node scripts/capture-fixtures.mjs
+  #   docker compose run --rm playwright npm run test:fixture
+  playwright:
+    image: mcr.microsoft.com/playwright:v1.58.2-noble
+    volumes:
+      - .:/app
+    working_dir: /app
+    network_mode: host
+    environment:
+      - NODE_ENV=development
+      - LOG_LEVEL=${LOG_LEVEL:-debug}
+
+
+  bank-sync:
+    build:
+      context: .
+      target: runtime
+      network: host
+    env_file:
+      - .env
+    volumes:
+      - ./config.json:/app/config.json:ro
+    networks:
+      - actualbudget_network
+    restart: unless-stopped
+    healthcheck:
+      test:
+        - CMD
+        - node
+        - -e
+        - |
+          const fs = require('fs');
+          const intervalSecs = parseInt(process.env.SYNC_INTERVAL_SECONDS || '86400', 10);
+          try {
+            const s = JSON.parse(fs.readFileSync('/tmp/sync-status.json', 'utf8'));
+            const age = (Date.now() - new Date(s.lastRunAt).getTime()) / 1000;
+            process.exit(age > intervalSecs * 2 ? 1 : 0);
+          } catch { process.exit(1); }
+      interval: 5m
+      timeout: 10s
+      retries: 3
+      start_period: 2m
+
+networks:
+  actualbudget_network:
+    external: true
+    name: ${ACTUAL_NETWORK_NAME:-actualbudget_default}

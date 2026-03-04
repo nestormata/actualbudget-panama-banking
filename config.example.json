@@ -1,0 +1,15 @@
+{
+  "syncIntervalCron": "0 8 * * *",
+  "banks": [
+    {
+      "bankId": "globalbank-pa",
+      "accounts": [
+        {
+          "bankAccountId": "001-123456-7",
+          "actualBudgetAccountId": "your-actual-budget-account-id",
+          "daysToFetch": 30
+        }
+      ]
+    }
+  ]
+}

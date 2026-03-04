@@ -1,0 +1,458 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head>
+
+
+<script>
+var ctx = "/eBanking";
+</script>
+
+
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7">
+
+
+<link rel="shortcut icon" href="/eBanking/images/favicon.ico">
+	
+
+
+<title>
+	GlobalBank
+</title>
+
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+
+<!-- GLOBAL-STYLES::INICIO -->
+	
+<!-- GLOBAL-STYLES::FIN -->
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- keyboard widget css & script -->
+<link href="/eBanking/combined.css?id=d7c37d8d199f68f" rel="stylesheet">
+<!-- JQuery core -->
+
+
+<!-- JQueryUI - Datepicker - ES  -->
+
+
+
+
+
+
+<!-- Jquery - Jmesa -->
+
+
+
+
+<!-- Bloqueo de la UI -->
+
+
+<!-- Mascaras en inputs -->
+
+
+<!-- Funciones globales -->
+
+<!-- No permitir caracteres especiales en los input --><!-- autonumeric: http://www.decorplanit.com/plugin/#getAnchor-->
+
+
+
+
+<script src="/eBanking/combined.js?id=ace02d79199f68f"></script>
+<!-- XSS - frame - deny -->
+	<style> body { display : none;} </style>
+</head>
+
+<body onload=";backButtonOverride()" style="display: block;">
+	<!-- XSS - frame - deny -->
+	<script> 
+	  if (self == top) {
+	    var theBody = document.getElementsByTagName('body')[0]
+	    theBody.style.display = "block";
+	  } else { 
+	    top.location = self.location 
+	  }
+	</script>
+
+
+
+	<div id="disabledZone" style="float: right; display: none;">
+		<!-- Se utiliza en DWR -->
+		<div id="modalProcesando">
+			<div id="fondoModal">
+	<div id="imagenModal">
+		<img src="/eBanking/images/modal/processingAni.gif" border="0">
+	</div>
+
+	<div id="textoModal">
+		Espere por favor...
+	</div>
+</div>
+		</div>
+	</div>
+
+	<div id="minHeight"></div>
+
+	<div id="contenedorPadre">
+	<div id="header">
+		<div id="superior">
+			<div id="banner"></div>
+			<div style="display:inline-block;margin-right:10px;float: right; margin-top: 1px">
+				<div class="idiomaLink" style="margin-right:10px; margin-top: 0;">
+					<ul>
+						<li style="display:inline-block;justify-content: right; margin-right: 20px; position: relative;">
+							
+
+<div id="sesionBox">
+	<a> 
+		
+
+<img class="avatar " src="/eBanking/images/avatar/39.jpg">
+ 
+		<span>Nestor&nbsp;Mata</span> 
+		<span style="text-align: right; padding-left:15px; padding-right:15px;"><i class="fa fa-cog" aria-hidden="true" style="font-size:1.3em;"></i></span>
+	</a>
+
+	<ul>
+		
+		<li>
+			<div style="display: inline-block; margin-top: 1px ; margin-left: 5px">
+				
+	
+	<div>
+		<i class="fa fa-language" style="font-size:1.2em"></i>
+		
+		
+		
+		<a id="selectorEs" href="?lang=es_PA&amp;execution=e1s1" style="display: none;">
+			English
+		</a>	
+		<a id="selectorEn" href="?lang=en_PA&amp;execution=e1s1">
+			English
+		</a>
+	</div>
+	
+	<script type="text/javascript">
+		function showLanguageSelector(obj,language){	
+			if("es_PA"!=language){
+				obj.show();		
+			}else{
+				obj.hide();
+			}
+		}
+		
+		showLanguageSelector($k("#selectorEs"),'es_PA');
+		showLanguageSelector($k("#selectorEn"),'en_PA');
+	</script>
+
+
+			</div>
+		</li>
+	</ul>
+</div>
+						</li>
+						<li style="display:inline-block;justify-content: right; margin-right: 10px; float: right; margin-top: 20px;">
+							<i class="fa fa-power-off" style="font-size:1.2em"></i>
+							<a href="/eBanking/usuario/eliminarToken.htm">
+								Salir
+							</a>
+						</li>
+					</ul>
+				</div>						
+			</div>		
+		</div>
+	</div>
+	<div id="outer">
+		<div class="contenedor-form-decorator">
+			<script>
+var ctx = "/eBanking";
+</script>
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+	<form id="command" action="/eBanking/usuario/protocolo/ingreso.htm?execution=e1s1" method="post">
+	
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+var ctx = "/eBanking";
+</script>
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+	<div class="contenedor-titulo-seccion ">
+		<div class="titulo-seccion">
+				
+					
+					
+						
+	
+							<i class="fa ti ti-perfilConfiguracion ti-lg"></i>
+						
+					
+					
+					
+				
+					
+					
+						
+							Mis perfiles
+						
+					
+					
+				
+			
+		</div>
+	</div>
+
+				
+		
+		<div class="contenedor-formulario">
+			
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="panelComunicacion iconoError ">
+	
+	<div class="encabezado">
+		Lo sentimos. Han ocurrido errores al intentar realizar la operación:
+	</div>
+	
+	
+	<div class="cuerpo">
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+		
+	
+
+
+
+<ul class="messageList ">
+	
+	
+	<li class="severity-FATAL">Para iniciar una nueva sesión debe finalizar la sesión anterior. Recuerde siempre cerrar su sesión desde la opción "Cerrar Sesión" del menú principal. Favor espere 5 minutos y pruebe nuevamente.</li>
+	
+	
+</ul>
+
+
+</div>
+	
+</div>
+
+
+		</div>
+		
+		
+
+	<input type="hidden" name="_csrf" value="0caaf0b5-7c93-4fe4-9a79-05db0a1f985b">
+</form>
+		</div>
+			<div class="contenedor-panel-derecho">
+				
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+var ctx = "/eBanking";
+</script>
+
+
+ 
+
+
+
+
+
+
+
+
+<div class="seccion">
+	<i class="fa ti ti-alertas" style="margin-left: px; float: left; display: inline; margin-top:5px"></i>
+	<p class="titulo">
+		Último Ingreso
+	</p>	
+	
+	<p class="texto">
+	04-mar-2026 - 01:14 PM 
+	</p>	
+	
+</div>
+
+	
+			</div>
+		</div>
+	</div>
+	
+		
+	
+	<div class="footerNew">
+<!-- 		<div id="footerLogoDiv"> -->
+
+<!-- 		<div> -->
+		
+		<ul>
+			<li class="footerNewUl">
+				Copyright © 2023 Global Bank Corp.
+			</li>
+			<li class="fragmentoNewUl">
+				Primero la gente
+			</li>
+	   </ul>
+		
+	</div>
+
+	<script type="text/javascript">
+		bloquearUIClick('.blockUi');
+ 		validateFields();//Agrega comportamiento dependiendo de los class seteados. (ver validations.js)
+	</script>
+
+
+
+
+</body></html>

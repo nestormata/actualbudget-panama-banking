@@ -1,0 +1,7250 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head>
+
+
+<script>
+var ctx = "/eBanking";
+</script>
+
+
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7">
+
+
+
+
+
+<link rel="shortcut icon" href="/eBanking/images/favicon.ico">
+<link rel="stylesheet" href="/eBanking/styles/reset/reset.css" type="text/css">
+
+<title>
+	GlobalBank
+</title>
+
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+
+<!-- GLOBAL-STYLES::INICIO -->
+	<link href="/eBanking/css/styles.css" type="text/css" rel="stylesheet">
+
+<!-- GLOBAL-STYLES::FIN -->
+
+
+
+
+
+
+
+<!-- keyboard widget css & script -->
+<link href="/eBanking/combined.css?id=2fe832ed199f68f" rel="stylesheet">
+<!-- JQuery core -->	
+
+
+<!-- JQueryUI - Datepicker - ES  -->
+
+
+
+
+
+
+
+
+
+<!-- Jquery - Jmesa -->
+
+
+
+
+
+
+<!-- Para bordes redondeados en ie - http://jquery.malsup.com/corner/ --><!-- Bloqueo de la UI -->
+
+
+<!-- Mascaras en inputs -->
+
+
+<!-- Funciones globales -->
+
+<!-- No permitir caracteres especiales en los input --><!-- autonumeric: http://www.decorplanit.com/plugin/#getAnchor-->
+
+
+
+
+<script src="/eBanking/combined.js?id=b8d20c08199f68f"></script>
+
+<link rel="stylesheet" href="/eBanking/styles/solapa/solapaExtractoBV.css" type="text/css">
+	
+	<script type="text/javascript" src="/eBanking/dwr/engine.js"></script>
+	<script type="text/javascript" src="/eBanking/dwr/util.js"></script>
+	<script type="text/javascript" src="/eBanking/dwr/interface/DescargaServiceAjaxFacade.js"> </script>
+	<script type="text/javascript" src="/eBanking/js/jquery.maskedinput.js"></script>
+	<script type="text/javascript">
+		function clickDetails(id)
+		{
+	 		document.getElementById('evento').name='_eventId_verComprobantes';
+	 		document.getElementById('nroReferenciaSeleccionado').value=id;
+	 		document.formResumen.submit();
+		}
+	</script><!-- XSS - frame - deny -->
+	<style> body { display : none;} </style>
+	<style type="text/css"> 
+	/* se aplica una sobrescritura particular para que entre "Seleccion de perfil" 
+	en el menu "Configuracion" cuando es un operador Empresa. */ 
+		.contenedor-menu-item .menu-item { 
+			margin: 7px 0 0 19px; 
+		} 
+	</style>
+</head>
+
+<body onload=";backButtonOverride()" style="display: block;">
+	<!-- XSS - frame - deny -->
+	<script> 
+	  if (self == top) {
+	    var theBody = document.getElementsByTagName('body')[0]
+	    theBody.style.display = "block";
+	  } else { 
+	    top.location = self.location 
+	  }
+	</script>
+
+	<div id="disabledZone" style="float: right; display: none;">
+		<div id="modalProcesando">
+			<div id="fondoModal">
+	<div id="imagenModal">
+		<img src="/eBanking/images/modal/processingAni.gif" border="0">
+	</div>
+
+	<div id="textoModal">
+		Espere por favor...
+	</div>
+</div>
+		</div>
+	</div>
+
+	<div id="minHeight"></div>
+	<div id="contenedorPadre">
+	<div id="header">
+		<div id="superior">
+			<div id="banner"></div>
+			<div style="display:inline-block;margin-right:10px;float: right; margin-top: 1px">
+				<div class="idiomaLink" style="margin-right:10px; margin-top: 0;">
+					<ul>
+						
+							<li style="display:inline-block;margin-right:20px; align-items: center;float: left;margin-top: 20px;">
+								<a href="/eBanking/notificaciones.htm"><i class="fa fa-bell-slash-o" aria-hidden="true" style="font-size: 1.8em"></i></a></li>
+						
+						<li style="display:inline-block;justify-content: right; margin-right: 20px; position: relative;">
+
+<div id="sesionBox">
+	<a> 
+		
+
+<img class="avatar " src="/eBanking/images/avatar/39.jpg">
+ 
+		<span>Nestor&nbsp;Mata</span> 
+		<span style="text-align: right; padding-left:15px; padding-right:15px;"><i class="fa fa-cog" aria-hidden="true" style="font-size:1.3em;"></i></span>
+	</a>
+
+	<ul>
+		
+			<li><a class="blockUi" href="/eBanking/usuario/datosPrincipales/actualizacion/menu.htm">
+					Actualizar mis datos
+			</a></li>
+		
+			<li><a class="blockUi" href="/eBanking/usuario/clave/modificacion.htm">
+					Contraseña
+			</a></li>
+		
+			<li><a class="blockUi" href="/eBanking/configuracion/modificacionConsolidada.htm">
+					Personalizar mis productos
+			</a></li>
+		
+		<li>
+			<div style="display: inline-block; margin-top: 1px ; margin-left: 5px">
+				
+	
+	<div>
+		<i class="fa fa-language" style="font-size:1.2em"></i>
+		
+		
+		
+		<a id="selectorEs" href="?lang=es_PA&amp;execution=e1s2" style="display: none;">
+			English
+		</a>	
+		<a id="selectorEn" href="?lang=en_PA&amp;execution=e1s2">
+			English
+		</a>
+	</div>
+	
+	<script type="text/javascript">
+		function showLanguageSelector(obj,language){	
+			if("es_PA"!=language){
+				obj.show();		
+			}else{
+				obj.hide();
+			}
+		}
+		
+		showLanguageSelector($k("#selectorEs"),'es_PA');
+		showLanguageSelector($k("#selectorEn"),'en_PA');
+	</script>
+
+
+			</div>
+		</li>
+	</ul>
+</div>
+						</li>
+						<li style="display:inline-block;justify-content: right; margin-right: 10px; float: right; margin-top: 20px;">
+							<i class="fa fa-power-off " style="font-size:1.3em;"></i>
+							<a href="/eBanking/usuario/eliminarToken.htm">
+								Salir
+							</a>
+						</li>
+					</ul>
+				</div>									
+			</div>						
+		</div>
+		<div id="menuBox">			
+			
+<script>
+var ctx = "/eBanking";
+</script>
+
+<script>
+var ctx = "/eBanking";
+</script>
+		
+		 
+		
+		<input type="hidden" id="urlPage" maxlength="40">
+		
+			<div id="modalPopupSitio" class="modalPopupSitio" style="display: none;">				
+				<div id="popup_fondo">
+					<div id="popup_contenedor">
+						
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+var ctx = "/eBanking";
+</script>
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+	<div class="contenedor-titulo-seccion ">
+		<div class="titulo-seccion">
+				
+					
+					
+						
+	
+							<i class="fa ti ti-calculadora ti-lg"></i>
+						
+					
+					
+					
+				
+					
+					
+						
+							Sitio seguro
+						
+					
+					
+				
+			
+		</div>
+	</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
+
+<div class="panelComunicacion iconoInfo ">
+	
+	<div class="encabezado">
+		Usted está abandonando la Banca en Línea. ¿Desea continuar?
+	</div>
+	
+	
+</div>
+
+
+						<div>&nbsp;</div>	
+						<div id="centrado" style="width: 100%;">
+							<fieldset class="centrado">
+								<button class="texto-boton boton-primario" type="submit" onclick="openWindow();" value="Aceptar">
+									<span>Aceptar</span>
+								</button>
+								
+								<button class="texto-boton boton-secundario" type="submit" onclick="closePopUp();" value="Cancelar">
+									<span>Cancelar</span>
+								</button>
+							</fieldset>
+						</div>
+						<div id="bordeInferiorPopup"></div>
+					</div>
+				</div>
+			</div>		
+
+
+
+	<script type="text/javascript">
+	
+		function closePopUp(){
+			jQuery.unblockUI();
+			jQuery('#modalPopupSitio').hide();
+		}
+
+ 		function openPopUp(urlPagePopUp){
+ 			document.getElementById("urlPage").value=urlPagePopUp;
+			jQuery.blockUI({ message: jQuery('#modalPopupSitio'), centerY:true, centerX:true});	
+ 		}
+
+ 		function openWindow(){
+ 			closePopUp();
+ 			$k.ajax({url:ctx+'/usuario/eliminarToken.htm'}).done(function(){
+ 	 				window.location.href=document.getElementById("urlPage").value;
+ 					}
+ 	 		); 						
+ 		}
+	
+ 		jQuery('#modalPopupSitio').hide();
+		
+	</script>
+
+
+	
+
+<script type="text/javascript" src="/eBanking/dwr/interface/SeleccionMenuAjaxFacade.js"></script>
+	
+	<form id="menuForm" method="post" name="menuForm">
+		<input type="hidden" name="_csrf" value="c14a542e-6e9f-47bd-b49f-22f673ff0501" maxlength="40">
+		<input type="hidden" name="categoriaSeleccionada" id="categoriaSeleccionada" value="null" maxlength="40">
+		<input type="hidden" name="itemSeleccionado" id="itemSeleccionado" value="null" maxlength="40">
+		<div class="contenedor-menu-categoria">
+			<div id="listaCategorias" style="display:inline-block; width: 100%"><a href="/eBanking/productos/posicionConsolidada.htm" id="INICIO" class="blockUi menu-categoria activo">
+			<p align="center">
+				<i class="fa ti ti-inicio "></i>
+			</p>
+			
+				
+					<p align="center">Inicio</p>
+				
+				
+			
+		</a><div id="TRANSFERENCIAS" class="menu-categoria inactivo">
+						<p align="center">
+							<i class="fa ti ti-transferencia "></i>
+						</p>
+					
+						
+							<p align="center">Transferencias</p>
+						
+						
+					
+					</div><div id="PAGOS" class="menu-categoria inactivo">
+						<p align="center">
+							<i class="fa ti ti-pago "></i>
+						</p>
+					
+						
+							<p align="center">Pagos</p>
+						
+						
+					
+					</div><div id="PROGRAMADAS" class="menu-categoria inactivo">
+						<p align="center">
+							<i class="fa ti ti-ach "></i>
+						</p>
+					
+						
+							<p align="center">Programadas</p>
+						
+						
+					
+					</div><a href="/eBanking/programadas/agendaFrecuentes.htm" id="FRECUENTES" class="blockUi menu-categoria inactivo" onclick="clearSessionStorage()">
+			<p align="center">
+				<i class="fa ti ti-frecuente "></i>
+			</p>
+			
+				
+					<p align="center">Frecuentes</p>
+				
+				
+			
+		</a><div id="PUNTOS" class="menu-categoria inactivo">
+						<p align="center">
+							<i class="fa ti ti-beneficio "></i>
+						</p>
+					
+						
+							<p align="center">Puntos</p>
+						
+						
+					
+					</div><div id="CONSULTAS" class="menu-categoria inactivo">
+						<p align="center">
+							<i class="fa ti ti-consultas "></i>
+						</p>
+					
+						
+							<p align="center">Consultas</p>
+						
+						
+					
+					</div><div id="SOLICITUDES" class="menu-categoria inactivo">
+						<p align="center">
+							<i class="fa ti ti-solicitud "></i>
+						</p>
+					
+						
+							<p align="center">Solicitudes</p>
+						
+						
+					
+					</div><div id="SEGURIDAD" class="menu-categoria inactivo" style="display:none;">
+					</div><div id="ACTUALIZACIONDATOS" class="menu-categoria inactivo" style="display:none;">
+					</div><div id="CONFIGURACION" class="menu-categoria inactivo" style="display:none;">
+					</div></div>
+			
+	
+
+
+
+
+
+	
+	
+
+
+		
+	
+
+
+			
+			
+
+		
+		
+		
+		
+
+			
+		
+	
+	
+		 
+			
+		 
+	
+		  
+
+		
+	
+	<ul id="contenedor_items_INICIO" class="contenedor-menu-item hide" style="display: block;">				
+			
+
+
+
+
+
+
+
+	
+
+
+	
+
+
+
+
+
+
+	
+
+		
+			
+			
+		
+		
+	
+	
+
+
+	
+	
+		
+		
+		
+	
+
+
+
+	
+		
+	
+	
+
+	
+	
+	
+	
+			
+			
+					
+					<li id="PARENT_EB_POSICION_CONSOLIDADA" class="menu-item activo">
+											
+							
+						
+							<a id="EB_POSICION_CONSOLIDADA" href="/eBanking/productos/posicionConsolidada.htm" class="blockUi" name="/eBanking/productos/posicionConsolidada.htm" nivel="1" haschild="false" categorycode="INICIO" target="">
+						
+						
+							
+								Mis productos
+							
+							
+													
+						</a>
+						<ul class="contenedor-menu-subItem">
+							
+						</ul>
+					</li>
+				
+			
+	
+
+
+		</ul>
+		
+		
+		
+	
+
+
+
+
+
+	
+	
+
+
+		
+	
+
+
+			
+			
+
+		
+		
+		
+		
+
+			
+		
+	
+	
+		  
+	
+		  
+
+		
+			
+				
+				
+							
+				
+			
+			
+		 
+	
+	<ul id="contenedor_items_TRANSFERENCIAS" class="contenedor-menu-item hide" style="display: none;">				
+			
+
+
+
+
+
+
+
+	
+
+
+	
+
+
+
+
+
+
+	
+
+		
+			
+			
+		
+		
+	
+	
+
+
+	
+	
+		
+		
+		
+	
+
+
+
+	
+		
+	
+	
+
+	
+	
+	
+	
+			
+			
+					
+					<li id="PARENT_EB_TRANSFERENCIA_CUENTAS_PROPIAS" class="menu-item  inactivo">
+											
+							
+						
+							<a id="EB_TRANSFERENCIA_CUENTAS_PROPIAS" href="/eBanking/transferencias/cuentasPropias.htm" class="blockUi" name="/eBanking/transferencias/cuentasPropias.htm" nivel="1" haschild="false" categorycode="TRANSFERENCIAS" target="">
+						
+						
+							
+								Cuentas propias
+							
+							
+													
+						</a>
+						<ul class="contenedor-menu-subItem">
+							
+						</ul>
+					</li>
+				
+			
+	
+
+
+
+
+
+
+
+
+
+	
+
+
+	
+
+
+
+
+
+
+	
+
+		
+			
+			
+		
+		
+	
+	
+
+
+	
+	
+		
+		
+		
+	
+
+
+
+	
+		
+	
+	
+
+	
+	
+	
+	
+			
+			
+					
+					<li id="PARENT_EB_TRANSFERENCIA_TERCEROS_MISMO_BANCO" class="menu-item  inactivo">
+											
+							
+						
+							<a id="EB_TRANSFERENCIA_TERCEROS_MISMO_BANCO" href="/eBanking/transferencias/terceros.htm" class="blockUi" name="/eBanking/transferencias/terceros.htm" nivel="1" haschild="false" categorycode="TRANSFERENCIAS" target="">
+						
+						
+							
+								Terceros
+							
+							
+													
+						</a>
+						<ul class="contenedor-menu-subItem">
+							
+						</ul>
+					</li>
+				
+			
+	
+
+
+
+
+
+
+
+
+
+	
+
+
+	
+
+
+
+
+
+
+	
+
+		
+			
+			
+		
+		
+	
+	
+
+
+	
+	
+		
+		
+		
+	
+
+
+
+	
+		
+	
+	
+
+	
+	
+	
+	
+			
+			
+					
+					<li id="PARENT_EB_TRANSFERENCIA_INTERNACIONAL" class="menu-item  inactivo">
+											
+							
+						
+							<a id="EB_TRANSFERENCIA_INTERNACIONAL" href="/eBanking/transferencias/internacional.htm" class="blockUi" name="/eBanking/transferencias/internacional.htm" nivel="1" haschild="false" categorycode="TRANSFERENCIAS" target="">
+						
+						
+							
+								Internacionales
+							
+							
+													
+						</a>
+						<ul class="contenedor-menu-subItem">
+							
+						</ul>
+					</li>
+				
+			
+	
+
+
+
+
+
+
+
+
+
+	
+
+
+	
+
+
+
+
+
+
+	
+
+		
+			
+			
+		
+		
+	
+	
+
+
+	
+	
+		
+		
+		
+	
+
+
+
+	
+		
+	
+	
+
+	
+	
+	
+	
+			
+			
+					
+					<li id="PARENT_EB_AGENDA_CUENTAS_TERCEROS" class="menu-item  inactivo">
+											
+							
+						
+							<a id="EB_AGENDA_CUENTAS_TERCEROS" href="/eBanking/transferencias/agendaDeCuentas.htm" class="blockUi" name="/eBanking/transferencias/agendaDeCuentas.htm" nivel="1" haschild="false" categorycode="TRANSFERENCIAS" target="">
+						
+						
+							
+								Frecuentes
+							
+							
+													
+						</a>
+						<ul class="contenedor-menu-subItem">
+							
+						</ul>
+					</li>
+				
+			
+	
+
+
+		</ul>
+		
+		
+		
+	
+
+
+
+
+
+	
+	
+
+
+		
+	
+
+
+			
+			
+
+		
+		
+		
+		
+
+			
+		
+	
+	
+		  
+	
+		  
+
+		
+			
+				
+				
+							
+				
+			
+			
+		 
+	
+	<ul id="contenedor_items_PAGOS" class="contenedor-menu-item hide" style="display: none;">				
+			
+
+
+
+
+
+
+
+	
+
+
+	
+
+
+
+
+
+
+	
+
+		
+		
+			
+			
+		
+	
+	
+
+
+	
+		
+					
+	
+		
+	
+
+
+
+	
+		
+	
+	
+
+	
+	
+	
+	
+			
+			
+					
+					<li id="PARENT_PAGO_TARJETAS" class="menu-item  inactivo">
+											
+							
+						
+							<a id="PAGO_TARJETAS" href="#" class=" " name="#" nivel="1" haschild="true" categorycode="PAGOS" target="">
+						
+						
+							
+								Tarjetas
+							
+							
+													
+						</a>
+						<ul class="contenedor-menu-subItem">
+							
+
+
+	
+
+
+
+
+		
+
+
+
+		
+
+	
+
+	
+	
+		
+			
+		
+		
+		
+		
+	
+		
+			
+			
+		
+		
+	
+	
+	<li class="menu-subItem" itemcode="PAGO_TARJETAS">
+		
+			
+				<a href="/eBanking/productos/tarjetaCredito/pagos/porMenu.htm" id="EB_PAGOS_TARJETA_CREDITO_MISMO_BANCO" name="productos/tarjetaCredito/pagos/porMenu.htm" nivel="2" class="blockUi" target="">
+			
+			
+		
+		
+			
+				Mis tarjetas														
+			
+			
+		
+		</a>
+	</li>
+										
+
+
+
+
+	
+
+
+
+
+		
+
+
+
+		
+
+	
+
+	
+	
+		
+			
+		
+		
+		
+		
+	
+		
+			
+			
+		
+		
+	
+	
+	<li class="menu-subItem" itemcode="PAGO_TARJETAS">
+		
+			
+				<a href="/eBanking/productos/tarjetaCredito/pagosATerceros.htm" id="EB_PAGOS_TARJETA_CREDITO_TERCEROS_MISMO_BANCO" name="productos/tarjetaCredito/pagosATerceros.htm" nivel="2" class="blockUi" target="">
+			
+			
+		
+		
+			
+				Terceros del banco														
+			
+			
+		
+		</a>
+	</li>
+										
+
+
+
+
+	
+
+
+
+
+		
+
+
+
+		
+
+	
+
+	
+	
+		
+			
+		
+		
+		
+		
+	
+		
+			
+			
+		
+		
+	
+	
+	<li class="menu-subItem" itemcode="PAGO_TARJETAS">
+		
+			
+				<a href="/eBanking/productos/tarjetaCredito/pagosATercerosOtrosBancos.htm" id="EB_PAGOS_TARJETA_CREDITO_TERCEROS_OTROS_BANCOS" name="productos/tarjetaCredito/pagosATercerosOtrosBancos.htm" nivel="2" class="blockUi" target="">
+			
+			
+		
+		
+			
+				Terceros otros bancos														
+			
+			
+		
+		</a>
+	</li>
+										
+
+
+
+
+	
+
+
+
+
+		
+
+
+
+		
+
+	
+
+	
+	
+		
+			
+		
+		
+		
+		
+	
+		
+			
+			
+		
+		
+	
+	
+	<li class="menu-subItem" itemcode="PAGO_TARJETAS">
+		
+			
+				<a href="/eBanking/transferencias/agendaDeTarjetas.htm" id="EB_AGENDA_TARJETAS" name="transferencias/agendaDeTarjetas.htm" nivel="2" class="blockUi" target="">
+			
+			
+		
+		
+			
+				Frecuentes														
+			
+			
+		
+		</a>
+	</li>
+										
+
+
+						</ul>
+					</li>
+				
+			
+	
+
+
+
+
+
+
+
+
+
+	
+
+
+	
+
+
+
+
+
+
+	
+
+		
+		
+			
+			
+		
+	
+	
+
+
+	
+		
+					
+	
+		
+	
+
+
+
+	
+		
+	
+	
+
+	
+	
+	
+	
+			
+			
+					
+					<li id="PARENT_DETALLE_PRESTAMOS" class="menu-item  inactivo">
+											
+							
+						
+							<a id="DETALLE_PRESTAMOS" href="#" class=" " name="#" nivel="1" haschild="true" categorycode="PAGOS" target="">
+						
+						
+							
+								Préstamos
+							
+							
+													
+						</a>
+						<ul class="contenedor-menu-subItem">
+							
+
+
+	
+
+
+
+
+		
+
+
+
+		
+
+	
+
+	
+	
+		
+			
+		
+		
+		
+		
+	
+		
+			
+			
+		
+		
+	
+	
+	<li class="menu-subItem" itemcode="DETALLE_PRESTAMOS">
+		
+			
+				<a href="/eBanking/pagos/prestamos/debitoEnCuenta.htm" id="EB_PAGO_PRESTAMOS_DEBITO_EN_CUENTA" name="pagos/prestamos/debitoEnCuenta.htm" nivel="2" class="blockUi" target="">
+			
+			
+		
+		
+			
+				Mis préstamos														
+			
+			
+		
+		</a>
+	</li>
+										
+
+
+
+
+	
+
+
+
+
+		
+
+
+
+		
+
+	
+
+	
+	
+		
+			
+		
+		
+		
+		
+	
+		
+			
+			
+		
+		
+	
+	
+	<li class="menu-subItem" itemcode="DETALLE_PRESTAMOS">
+		
+			
+				<a href="/eBanking/pagos/prestamos/otrosPrestamosDelBanco.htm" id="EB_PAGO_OTROS_PRESTAMOS_DEL_BANCO" name="pagos/prestamos/otrosPrestamosDelBanco.htm" nivel="2" class="blockUi" target="">
+			
+			
+		
+		
+			
+				Terceros del banco														
+			
+			
+		
+		</a>
+	</li>
+										
+
+
+
+
+	
+
+
+
+
+		
+
+
+
+		
+
+	
+
+	
+	
+		
+			
+		
+		
+		
+		
+	
+		
+			
+			
+		
+		
+	
+	
+	<li class="menu-subItem" itemcode="DETALLE_PRESTAMOS">
+		
+			
+				<a href="/eBanking/pagos/prestamos/prestamosDeOtrosBancos.htm" id="EB_PAGO_PRESTAMOS_DE_OTROS_BANCOS" name="pagos/prestamos/prestamosDeOtrosBancos.htm" nivel="2" class="blockUi" target="">
+			
+			
+		
+		
+			
+				Terceros otros bancos														
+			
+			
+		
+		</a>
+	</li>
+										
+
+
+
+
+	
+
+
+
+
+		
+
+
+
+		
+
+	
+
+	
+	
+		
+			
+		
+		
+		
+		
+	
+		
+			
+			
+		
+		
+	
+	
+	<li class="menu-subItem" itemcode="DETALLE_PRESTAMOS">
+		
+			
+				<a href="/eBanking/transferencias/agendaPrestamos.htm" id="EB_AGENDA_PRESTAMOS" name="transferencias/agendaPrestamos.htm" nivel="2" class="blockUi" target="">
+			
+			
+		
+		
+			
+				Frecuentes														
+			
+			
+		
+		</a>
+	</li>
+										
+
+
+						</ul>
+					</li>
+				
+			
+	
+
+
+
+
+
+
+
+
+
+	
+
+
+	
+
+
+
+
+
+
+	
+
+		
+		
+			
+			
+		
+	
+	
+
+
+	
+		
+					
+	
+		
+	
+
+
+
+	
+		
+	
+	
+
+	
+	
+	
+	
+			
+			
+					
+					<li id="PARENT_PAGO_SERVICIOS" class="menu-item  inactivo">
+											
+							
+						
+							<a id="PAGO_SERVICIOS" href="#" class=" " name="#" nivel="1" haschild="true" categorycode="PAGOS" target="">
+						
+						
+							
+								Servicios
+							
+							
+													
+						</a>
+						<ul class="contenedor-menu-subItem">
+							<!--  (DTF56)-->
+
+
+	
+
+
+
+
+		
+
+
+
+		
+
+	
+
+	
+	
+		
+			
+		
+		
+		
+		
+	
+		
+			
+			
+		
+		
+	
+	
+	<li class="menu-subItem" itemcode="PAGO_SERVICIOS">
+		
+			
+				<a href="/eBanking/pagos/adherirServicios.htm" id="EB_SUSCRIPCION_SERVICIOS" name="pagos/adherirServicios.htm" nivel="2" class="blockUi" target="">
+			
+			
+		
+		
+			
+				Afiliación de servicios														
+			
+			
+		
+		</a>
+	</li>
+										
+
+
+
+
+	
+
+
+
+
+		
+
+
+
+		
+
+	
+
+	
+	
+		
+			
+		
+		
+		
+		
+	
+		
+			
+			
+		
+		
+	
+	
+	<li class="menu-subItem" itemcode="PAGO_SERVICIOS">
+		
+			
+				<a href="/eBanking/pagos/pagoServiciosAdheridos.htm" id="EB_PAGO_SERVICIOS" name="pagos/pagoServiciosAdheridos.htm" nivel="2" class="blockUi" target="">
+			
+			
+		
+		
+			
+				Pago de Servicios														
+			
+			
+		
+		</a>
+	</li>
+										
+
+
+
+
+	
+
+
+
+
+		
+
+
+
+		
+
+	
+
+	
+	
+		
+			
+		
+		
+		
+		
+	
+		
+			
+			
+		
+		
+	
+	
+	<li class="menu-subItem" itemcode="PAGO_SERVICIOS">
+		
+			
+				<a href="/eBanking/pagos/pagoServiciosRecurrente.htm" id="EB_PAGO_SERVICIOS_RECURRENTE" name="pagos/pagoServiciosRecurrente.htm" nivel="2" class="blockUi" target="">
+			
+			
+		
+		
+			
+				Recurrentes														
+			
+			
+		
+		</a>
+	</li>
+										
+
+
+
+
+	
+
+
+
+
+		
+
+
+
+		
+
+	
+
+	
+	
+		
+			
+		
+		
+		
+		
+	
+		
+			
+			
+		
+		
+	
+	
+	<li class="menu-subItem" itemcode="PAGO_SERVICIOS">
+		
+			
+				<a href="/eBanking/pagos/pagoDGI.htm" id="EB_PAGO_DGI" name="pagos/pagoDGI.htm" nivel="2" class="blockUi" target="">
+			
+			
+		
+		
+			
+				Pago Impuesto DGI														
+			
+			
+		
+		</a>
+	</li>
+										
+
+
+						</ul>
+					</li>
+				
+			
+	
+
+
+
+
+
+
+
+
+
+	
+
+
+	
+
+
+
+
+
+
+	
+
+		
+		
+			
+			
+		
+	
+	
+
+
+	
+		
+					
+	
+		
+	
+
+
+
+	
+		
+	
+	
+
+	
+	
+	
+	
+			
+			
+					
+					<li id="PARENT_RECARGAS" class="menu-item  inactivo">
+											
+							
+						
+							<a id="RECARGAS" href="#" class=" " name="#" nivel="1" haschild="true" categorycode="PAGOS" target="">
+						
+						
+							
+								Recargas
+							
+							
+													
+						</a>
+						<ul class="contenedor-menu-subItem">
+							
+
+
+	
+
+
+
+
+		
+
+
+
+		
+
+	
+
+	
+	
+		
+			
+		
+		
+		
+		
+	
+		
+			
+			
+		
+		
+	
+	
+	<li class="menu-subItem" itemcode="RECARGAS">
+		
+			
+				<a href="/eBanking/pagos/recargas/frecuentesRecargas.htm" id="EB_AGENDA_RECARGAS" name="pagos/recargas/frecuentesRecargas.htm" nivel="2" class="blockUi" target="">
+			
+			
+		
+		
+			
+				Frecuentes														
+			
+			
+		
+		</a>
+	</li>
+										
+
+
+
+
+	
+
+
+
+
+		
+
+
+
+		
+
+	
+
+	
+	
+		
+			
+		
+		
+		
+		
+	
+		
+			
+			
+		
+		
+	
+	
+	<li class="menu-subItem" itemcode="RECARGAS">
+		
+			
+				<a href="/eBanking/pagos/recargas/recargar.htm" id="EB_PAGO_RECARGAS" name="pagos/recargas/recargar.htm" nivel="2" class="blockUi" target="">
+			
+			
+		
+		
+			
+				Recargar														
+			
+			
+		
+		</a>
+	</li>
+										
+
+
+						</ul>
+					</li>
+				
+			
+	
+
+
+		</ul>
+		
+		
+		
+	
+
+
+
+
+
+	
+	
+
+
+		
+	
+
+
+			
+			
+
+		
+		
+		
+		
+
+			
+		
+	
+	
+		  
+	
+		  
+
+		
+			
+				
+				
+							
+				
+			
+			
+		 
+	
+	<ul id="contenedor_items_PROGRAMADAS" class="contenedor-menu-item hide" style="display: none;">				
+			
+
+
+
+
+
+
+
+	
+
+
+	
+
+
+
+
+
+
+	
+
+		
+			
+			
+		
+		
+	
+	
+
+
+	
+	
+		
+		
+		
+	
+
+
+
+	
+		
+	
+	
+
+	
+	
+	
+	
+			
+			
+					
+					<li id="PARENT_EB_PROGRAMAR_TRANSACCION" class="menu-item  inactivo">
+											
+							
+						
+							<a id="EB_PROGRAMAR_TRANSACCION" href="/eBanking/programadas/programar.htm" class="blockUi" name="/eBanking/programadas/programar.htm" nivel="1" haschild="false" categorycode="PROGRAMADAS" target="">
+						
+						
+							
+								Programar
+							
+							
+													
+						</a>
+						<ul class="contenedor-menu-subItem">
+							
+						</ul>
+					</li>
+				
+			
+	
+
+
+
+
+
+
+
+
+
+	
+
+
+	
+
+
+
+
+
+
+	
+
+		
+			
+			
+		
+		
+	
+	
+
+
+	
+	
+		
+		
+		
+	
+
+
+
+	
+		
+	
+	
+
+	
+	
+	
+	
+			
+			
+					
+					<li id="PARENT_EB_CONSULTA_PROGRAMADAS" class="menu-item  inactivo">
+											
+							
+						
+							<a id="EB_CONSULTA_PROGRAMADAS" href="/eBanking/programadas/consulta.htm" class="blockUi" name="/eBanking/programadas/consulta.htm" nivel="1" haschild="false" categorycode="PROGRAMADAS" target="">
+						
+						
+							
+								Consultar/Cancelar
+							
+							
+													
+						</a>
+						<ul class="contenedor-menu-subItem">
+							
+						</ul>
+					</li>
+				
+			
+	
+
+
+		</ul>
+		
+		
+		
+	
+
+
+
+
+
+	
+	
+
+
+		
+	
+
+
+			
+			
+
+		
+		
+		
+		
+
+			
+		
+	
+	
+		  
+	
+		 
+			
+		 
+
+		
+	
+	<ul id="contenedor_items_FRECUENTES" class="contenedor-menu-item hide" style="display: none;">				
+			
+
+
+
+
+
+
+
+	
+
+
+	
+
+
+
+
+
+
+	
+
+		
+			
+			
+		
+		
+	
+	
+
+
+	
+	
+		
+		
+		
+	
+
+
+
+	
+		
+	
+	
+
+	
+	
+	
+	
+			
+			
+				
+			
+	
+
+
+
+
+
+
+
+
+
+	
+
+
+	
+
+
+
+
+
+
+	
+
+		
+			
+			
+		
+		
+	
+	
+
+
+	
+	
+		
+		
+		
+	
+
+
+
+	
+		
+	
+	
+
+	
+	
+	
+	
+			
+			
+					
+					<li id="PARENT_EB_AGENDA_FRECUENTES" class="menu-item  inactivo">
+						
+							<a id="EB_AGENDA_FRECUENTES" href="/eBanking/programadas/agendaFrecuentes.htm" onclick="clearSessionStorage()" class="blockUi" name="/eBanking/programadas/agendaFrecuentes.htm" nivel="1" haschild="false" categorycode="FRECUENTES" target="">
+											
+							
+						
+						
+							
+								Agenda
+							
+							
+													
+						</a>
+						<ul class="contenedor-menu-subItem">
+							
+						</ul>
+					</li>
+				
+			
+	
+
+
+		</ul>
+		
+		
+		
+	
+
+
+
+
+
+	
+	
+
+
+		
+	
+
+		<!-- Uri de consulta de catalogo de puntos -->
+	
+
+
+
+
+
+	
+	
+
+
+		
+	
+
+
+			
+			
+
+		
+		
+		
+		
+
+			
+		
+	
+	
+		  
+	
+		  
+
+		
+			
+				
+				
+							
+				
+			
+			
+		 
+	
+	<ul id="contenedor_items_PUNTOS" class="contenedor-menu-item hide" style="display: none;">				
+			
+
+
+
+
+
+
+
+	
+
+
+	
+
+
+
+
+
+
+	
+
+		
+			
+			
+		
+		
+	
+	
+
+
+	
+		
+					
+	
+		
+	
+
+
+
+	
+		
+	
+	
+
+	
+	
+	
+	
+			
+			
+				
+			
+	
+
+
+
+
+
+
+
+
+
+	
+
+
+	
+
+
+
+
+
+
+	
+
+		
+		
+			
+			
+		
+	
+	
+
+
+	
+	
+		
+		
+		
+	
+
+
+
+	
+		
+	
+	
+
+	
+	
+	
+	
+			
+			
+					
+					<li id="PARENT_EB_CONSULTA_DE_PUNTOS" class="menu-item  inactivo">
+											
+							
+						
+							<a id="EB_CONSULTA_DE_PUNTOS" href="/eBanking/puntos/detalle.htm" class="blockUi" name="/eBanking/puntos/detalle.htm" nivel="1" haschild="true" categorycode="PUNTOS" target="">
+						
+						
+							
+								Detalle de puntos
+							
+							
+													
+						</a>
+						<ul class="contenedor-menu-subItem">
+							
+						</ul>
+					</li>
+				
+			
+	
+
+
+
+
+
+
+
+
+
+	
+
+
+	
+
+
+
+
+
+
+	
+
+		
+		
+			
+			
+		
+	
+	
+
+
+	
+	
+		
+		
+		
+	
+
+
+
+	
+		
+	
+	
+
+	
+	
+	
+	
+			
+			
+					
+					<li id="PARENT_EB_COMPRA_TRASLADO_PUNTOS" class="menu-item  inactivo">
+											
+							
+						
+							<a id="EB_COMPRA_TRASLADO_PUNTOS" href="/eBanking/puntos/compraTrasladoDePuntos.htm" class="blockUi" name="/eBanking/puntos/compraTrasladoDePuntos.htm" nivel="1" haschild="true" categorycode="PUNTOS" target="">
+						
+						
+							
+								Solicitud de traslado
+							
+							
+													
+						</a>
+						<ul class="contenedor-menu-subItem">
+							
+						</ul>
+					</li>
+				
+			
+	
+
+
+
+
+
+
+
+
+
+	
+
+
+	
+
+
+
+
+
+
+	
+
+		
+		
+			
+			
+		
+	
+	
+
+
+	
+		
+					
+	
+		
+	
+
+
+
+	
+		
+	
+	
+
+	
+	
+	
+	
+			
+			
+					
+					<li id="PARENT_CANJE_PUNTOS" class="menu-item  inactivo">
+											
+							
+						
+							<a id="CANJE_PUNTOS" href="#" class=" " name="#" nivel="1" haschild="true" categorycode="PUNTOS" target="">
+						
+						
+							
+								Canje de puntos
+							
+							
+													
+						</a>
+						<ul class="contenedor-menu-subItem">
+							
+
+
+	
+
+
+
+
+		
+
+
+
+		
+
+	
+
+	
+	
+		
+			
+		
+		
+		
+		
+	
+		
+			
+			
+		
+		
+	
+	
+	<li class="menu-subItem" itemcode="CANJE_PUNTOS">
+		
+			
+			
+				<a onclick="popularVirtualMall();" id="EB_CANJE_PUNTOS_LINK_PROMO" name="" nivel="2" target="">
+			
+		
+		
+			
+				Por Tienda online LinkPromo.com														
+			
+			
+		
+		</a>
+	</li>
+										
+
+
+
+
+	
+
+
+
+
+		
+
+
+
+		
+
+	
+
+	
+	
+		
+			
+		
+		
+		
+		
+	
+		
+			
+			
+		
+		
+	
+	
+	<li class="menu-subItem" itemcode="CANJE_PUNTOS">
+		
+			
+				<a href="/eBanking/puntos/canjeDePuntosPorCertificados.htm" id="EB_CANJE_PUNTOS_POR_CERTIFICADOS" name="puntos/canjeDePuntosPorCertificados.htm" nivel="2" class="blockUi" target="">
+			
+			
+		
+		
+			
+				Certificado o pago a tarjeta														
+			
+			
+		
+		</a>
+	</li>
+										
+
+
+
+
+	
+
+
+
+
+		
+
+
+
+		
+
+	
+
+	
+	
+		
+			
+		
+		
+		
+		
+	
+		
+			
+			
+		
+		
+	
+	
+	<li class="menu-subItem" itemcode="CANJE_PUNTOS">
+		
+			
+				<a href="/eBanking/puntos/canjeDePuntosPorPasajes.htm" id="EB_CANJE_PUNTOS_POR_PASAJES" name="puntos/canjeDePuntosPorPasajes.htm" nivel="2" class="blockUi" target="">
+			
+			
+		
+		
+			
+				Por pasajes														
+			
+			
+		
+		</a>
+	</li>
+										
+
+
+
+
+	
+
+
+
+
+		
+
+
+
+		
+
+	
+
+
+
+
+	
+
+
+
+
+		
+
+
+
+		
+
+	
+
+
+						</ul>
+					</li>
+				
+			
+	
+
+
+		</ul>
+		
+		
+		
+	
+
+
+
+
+
+	
+	
+
+
+		
+	
+
+
+			
+			
+
+		
+		
+		
+		
+
+			
+		
+	
+	
+		  
+	
+		  
+
+		
+			
+				
+				
+							
+				
+			
+			
+		 
+	
+	<ul id="contenedor_items_CONSULTAS" class="contenedor-menu-item hide" style="display: none;">				
+			
+
+
+
+
+
+
+
+	
+
+
+	
+
+
+
+
+
+
+	
+
+		
+			
+			
+		
+		
+	
+	
+
+
+	
+	
+		
+		
+		
+	
+
+
+
+	
+		
+	
+	
+
+	
+	
+	
+	
+			
+			
+					
+					<li id="PARENT_EB_CONSULTA_TRANSACCIONES" class="menu-item  inactivo">
+											
+							
+						
+							<a id="EB_CONSULTA_TRANSACCIONES" href="/eBanking/transacciones/consulta.htm" class="blockUi" name="/eBanking/transacciones/consulta.htm" nivel="1" haschild="false" categorycode="CONSULTAS" target="">
+						
+						
+							
+								Mis transacciones
+							
+							
+													
+						</a>
+						<ul class="contenedor-menu-subItem">
+							
+						</ul>
+					</li>
+				
+			
+	
+
+
+
+
+
+
+
+
+
+	
+
+
+	
+
+
+
+
+
+
+	
+
+		
+			
+			
+		
+		
+	
+	
+
+
+	
+	
+		
+		
+		
+	
+
+
+
+	
+		
+	
+	
+
+	
+	
+	
+	
+			
+			
+					
+					<li id="PARENT_EB_ACH_COMERCIAL_RECHAZOS" class="menu-item  inactivo">
+											
+							
+						
+							<a id="EB_ACH_COMERCIAL_RECHAZOS" href="/eBanking/pagos/ACHComercial/visualizacionRechazos.htm" class="blockUi" name="/eBanking/pagos/ACHComercial/visualizacionRechazos.htm" nivel="1" haschild="false" categorycode="CONSULTAS" target="">
+						
+						
+							
+								Consulta de rechazos
+							
+							
+													
+						</a>
+						<ul class="contenedor-menu-subItem">
+							
+						</ul>
+					</li>
+				
+			
+	
+
+
+
+
+
+
+
+
+
+	
+
+
+	
+
+
+
+
+
+
+	
+
+		
+			
+			
+		
+		
+	
+	
+
+
+	
+	
+		
+		
+		
+	
+
+
+
+	
+		
+	
+	
+
+	
+	
+	
+	
+			
+			
+				
+			
+	
+
+<!-- (DTF60)-->
+
+
+
+
+
+
+
+	
+
+
+	
+
+
+
+
+
+
+	
+
+		
+			
+			
+		
+		
+	
+	
+
+
+	
+	
+		
+		
+		
+	
+
+
+
+	
+		
+	
+	
+
+	
+	
+	
+	
+			
+			
+				
+			
+	
+
+
+
+
+
+
+
+
+
+	
+
+
+	
+
+
+
+
+
+
+	
+
+		
+			
+			
+		
+		
+	
+	
+
+
+	
+	
+		
+		
+		
+	
+
+
+
+	
+		
+	
+	
+
+	
+	
+	
+	
+			
+			
+					
+					<li id="PARENT_EB_CONSULTA_HISTORICO_COBRANZAS" class="menu-item  inactivo">
+											
+							
+						
+							<a id="EB_CONSULTA_HISTORICO_COBRANZAS" href="/eBanking/productos/comex/historicoCobranza.htm" class="blockUi" name="/eBanking/productos/comex/historicoCobranza.htm" nivel="1" haschild="false" categorycode="CONSULTAS" target="">
+						
+						
+							
+								Histórico de cobranzas
+							
+							
+													
+						</a>
+						<ul class="contenedor-menu-subItem">
+							
+						</ul>
+					</li>
+				
+			
+	
+
+
+		</ul>
+		
+		
+		
+	
+
+
+
+
+
+	
+	
+
+
+		
+	
+
+
+			
+			
+
+		
+		
+		
+		
+
+			
+		
+	
+	
+		  
+	
+		  
+
+		
+			
+				
+				
+							
+				
+			
+			
+		 
+	
+	<ul id="contenedor_items_SOLICITUDES" class="contenedor-menu-item hide" style="display: none;">				
+			
+
+
+
+
+
+
+
+	
+
+
+	
+
+
+
+
+
+
+	
+
+		
+		
+			
+			
+		
+	
+	
+
+
+	
+		
+					
+	
+		
+	
+
+
+
+	
+		
+	
+	
+
+	
+	
+	
+	
+			
+			
+					
+					<li id="PARENT_SOLICITUD_CUENTAS" class="menu-item  inactivo">
+											
+							
+						
+							<a id="SOLICITUD_CUENTAS" href="#" class=" " name="#" nivel="1" haschild="true" categorycode="SOLICITUDES" target="">
+						
+						
+							
+								Cuentas
+							
+							
+													
+						</a>
+						<ul class="contenedor-menu-subItem">
+							
+
+
+	
+
+
+
+
+		
+
+
+
+		
+
+	
+
+	
+	
+		
+			
+		
+		
+		
+		
+	
+		
+			
+			
+		
+		
+	
+	
+	<li class="menu-subItem" itemcode="SOLICITUD_CUENTAS">
+		
+			
+				<a href="/eBanking/productos/suscripcion/cuentas.htm" id="EB_SOLICITUD_ENVIO_EXTRACTO_ELECTRONICO" name="productos/suscripcion/cuentas.htm" nivel="2" class="blockUi" target="">
+			
+			
+		
+		
+			
+				Solicitud de envío de extracto electrónico														
+			
+			
+		
+		</a>
+	</li>
+										
+
+
+
+
+	
+
+
+
+
+		
+
+
+
+		
+
+	
+
+	
+	
+		
+			
+		
+		
+		
+		
+	
+		
+			
+			
+		
+		
+	
+	
+	<li class="menu-subItem" itemcode="SOLICITUD_CUENTAS">
+		
+			
+				<a href="/eBanking/solicitudes/cuentaOnline/menu.htm" id="EB_SOLICITUD_CUENTA_ONLINE" name="solicitudes/cuentaOnline/menu.htm" nivel="2" class="blockUi" target="">
+			
+			
+		
+		
+			
+				Solicitud de apertura Cuenta Online														
+			
+			
+		
+		</a>
+	</li>
+										
+
+
+
+
+	
+
+
+
+
+		
+
+
+
+		
+
+	
+
+
+						</ul>
+					</li>
+				
+			
+	
+
+
+
+
+
+
+
+
+
+	
+
+
+	
+
+
+
+
+
+
+	
+
+		
+		
+			
+			
+		
+	
+	
+
+
+	
+		
+					
+	
+		
+	
+
+
+
+	
+		
+	
+	
+
+	
+	
+	
+	
+			
+			
+					
+					<li id="PARENT_SOLICITUD_TARJETAS" class="menu-item  inactivo">
+											
+							
+						
+							<a id="SOLICITUD_TARJETAS" href="#" class=" " name="#" nivel="1" haschild="true" categorycode="SOLICITUDES" target="">
+						
+						
+							
+								Tarjetas
+							
+							
+													
+						</a>
+						<ul class="contenedor-menu-subItem">
+							
+
+
+	
+
+
+
+
+		
+
+
+
+		
+
+	
+
+	
+	
+		
+			
+		
+		
+		
+		
+	
+		
+			
+			
+		
+		
+	
+	
+	<li class="menu-subItem" itemcode="SOLICITUD_TARJETAS">
+		
+			
+				<a href="/eBanking/solicitudes/tarjeta.htm" id="EB_SOLICITUD_TARJETA_CREDITO" name="solicitudes/tarjeta.htm" nivel="2" class="blockUi" target="">
+			
+			
+		
+		
+			
+				Nueva														
+			
+			
+		
+		</a>
+	</li>
+										
+
+<!-- (DTF02-18) -->
+
+
+	
+
+
+
+
+		
+
+
+
+		
+
+	
+
+	
+	
+		
+			
+		
+		
+		
+		
+	
+		
+			
+			
+		
+		
+	
+	
+	<li class="menu-subItem" itemcode="SOLICITUD_TARJETAS">
+		
+			
+				<a href="/eBanking/solicitudes/adicionalTarjeta.htm" id="EB_SOLICITUD_TARJETA_ADICIONAL" name="solicitudes/adicionalTarjeta.htm" nivel="2" class="blockUi" target="">
+			
+			
+		
+		
+			
+				Adicionales														
+			
+			
+		
+		</a>
+	</li>
+										
+
+<!-- (DTF16) -->
+
+
+	
+
+
+
+
+		
+
+
+
+		
+
+	
+
+	
+	
+		
+			
+		
+		
+		
+		
+	
+		
+			
+			
+		
+		
+	
+	
+	<li class="menu-subItem" itemcode="SOLICITUD_TARJETAS">
+		
+			
+				<a href="/eBanking/solicitudes/aumentoDeCredito.htm" id="EB_SOLICITUD_TARJETA_AUMENTO_LIMITE_CREDITO" name="solicitudes/aumentoDeCredito.htm" nivel="2" class="blockUi" target="">
+			
+			
+		
+		
+			
+				Aumento de límite														
+			
+			
+		
+		</a>
+	</li>
+										
+
+
+
+
+	
+
+
+
+
+		
+
+
+
+		
+
+	
+
+<!-- DTF 02.13 -->
+
+
+	
+
+
+
+
+		
+
+
+
+		
+
+	
+
+	
+	
+		
+			
+		
+		
+		
+		
+	
+		
+			
+			
+		
+		
+	
+	
+	<li class="menu-subItem" itemcode="SOLICITUD_TARJETAS">
+		
+			
+				<a href="/eBanking/solicitudes/bloqueoTarjeta.htm" id="EB_SOLICITUD_BLOQUEO_TARJETA" name="solicitudes/bloqueoTarjeta.htm" nivel="2" class="blockUi" target="">
+			
+			
+		
+		
+			
+				Bloqueos														
+			
+			
+		
+		</a>
+	</li>
+										
+
+<!-- DTF 02.15 -->
+
+
+	
+
+
+
+
+		
+
+
+
+		
+
+	
+
+<!-- (DTF19) -->
+
+
+	
+
+
+
+
+		
+
+
+
+		
+
+	
+
+<!-- (DTF21) -->
+
+
+	
+
+
+
+
+		
+
+
+
+		
+
+	
+
+<!-- (DTF17) -->
+
+
+	
+
+
+
+
+		
+
+
+
+		
+
+	
+
+	
+	
+		
+			
+		
+		
+		
+		
+	
+		
+			
+			
+		
+		
+	
+	
+	<li class="menu-subItem" itemcode="SOLICITUD_TARJETAS">
+		
+			
+				<a href="/eBanking/productos/suscripcion/tarjetas.htm" id="EB_SOLICITUD_ENVIO_ESTADO_DE_CUENTA" name="productos/suscripcion/tarjetas.htm" nivel="2" class="blockUi" target="">
+			
+			
+		
+		
+			
+				Solicitud de envío de estado de cuenta														
+			
+			
+		
+		</a>
+	</li>
+										
+
+
+
+
+	
+
+
+
+
+		
+
+
+
+		
+
+	
+
+	
+	
+		
+			
+		
+		
+		
+		
+	
+		
+			
+			
+		
+		
+	
+	
+	<li class="menu-subItem" itemcode="SOLICITUD_TARJETAS">
+		
+			
+				<a href="/eBanking/solicitudes/solicitudPIN.htm" id="EB_SOLICITUD_PIN_VISA_DEBITO" name="solicitudes/solicitudPIN.htm" nivel="2" class="blockUi" target="">
+			
+			
+		
+		
+			
+				Solicitar PIN														
+			
+			
+		
+		</a>
+	</li>
+										
+
+<!-- (DTF17) -->
+						</ul>
+					</li>
+				
+			
+	
+
+
+
+
+
+
+
+
+
+	
+
+
+	
+
+
+
+
+
+
+	
+
+		
+			
+			
+		
+		
+	
+	
+
+
+	
+	
+		
+		
+		
+	
+
+
+
+	
+		
+	
+	
+
+	
+	
+	
+	
+			
+			
+					
+					<li id="PARENT_EB_SOLICITUD_PRESTAMOS" class="menu-item  inactivo">
+											
+							
+						
+							<a id="EB_SOLICITUD_PRESTAMOS" href="/eBanking/solicitudes/solicitudPrestamo.htm" class="blockUi" name="/eBanking/solicitudes/solicitudPrestamo.htm" nivel="1" haschild="false" categorycode="SOLICITUDES" target="">
+						
+						
+							
+								Préstamos
+							
+							
+													
+						</a>
+						<ul class="contenedor-menu-subItem">
+							
+						</ul>
+					</li>
+				
+			
+	
+
+
+
+
+
+
+
+
+
+	
+
+
+	
+
+
+
+
+
+
+	
+
+		
+		
+			
+			
+		
+	
+	
+
+
+	
+		
+					
+	
+		
+	
+
+
+
+	
+		
+	
+	
+
+	
+	
+	
+	
+			
+			
+					
+					<li id="PARENT_SOLICITUD_CHEQUES" class="menu-item  inactivo">
+											
+							
+						
+							<a id="SOLICITUD_CHEQUES" href="#" class=" " name="#" nivel="1" haschild="true" categorycode="SOLICITUDES" target="">
+						
+						
+							
+								Chequeras
+							
+							
+													
+						</a>
+						<ul class="contenedor-menu-subItem">
+							
+
+
+	
+
+
+
+
+		
+
+
+
+		
+
+	
+
+	
+	
+		
+			
+		
+		
+		
+		
+	
+		
+			
+			
+		
+		
+	
+	
+	<li class="menu-subItem" itemcode="SOLICITUD_CHEQUES">
+		
+			
+				<a href="/eBanking/solicitudes/solicitudChequera.htm" id="EB_SOLICITUD_CHEQUERA" name="solicitudes/solicitudChequera.htm" nivel="2" class="blockUi" target="">
+			
+			
+		
+		
+			
+				Solicitud de chequera														
+			
+			
+		
+		</a>
+	</li>
+										
+
+
+
+
+	
+
+
+
+
+		
+
+
+
+		
+
+	
+
+	
+	
+		
+			
+		
+		
+		
+		
+	
+		
+			
+			
+		
+		
+	
+	
+	<li class="menu-subItem" itemcode="SOLICITUD_CHEQUES">
+		
+			
+				<a href="/eBanking/solicitudes/solicitudChequeGerencia.htm" id="EB_SOLICITUD_CHEQUE_GERENCIA" name="solicitudes/solicitudChequeGerencia.htm" nivel="2" class="blockUi" target="">
+			
+			
+		
+		
+			
+				Solicitud de cheques de gerencia														
+			
+			
+		
+		</a>
+	</li>
+										
+
+
+						</ul>
+					</li>
+				
+			
+	
+
+
+
+
+
+
+
+
+
+	
+
+
+	
+
+
+
+
+
+
+	
+
+		
+		
+			
+			
+		
+	
+	
+
+
+	
+		
+					
+	
+		
+	
+
+
+
+	
+		
+	
+	
+
+	
+	
+	
+	
+			
+			
+					
+					<li id="PARENT_CARTAS" class="menu-item  inactivo">
+											
+							
+						
+							<a id="CARTAS" href="#" class=" " name="#" nivel="1" haschild="true" categorycode="SOLICITUDES" target="">
+						
+						
+							
+								Comercio Exterior
+							
+							
+													
+						</a>
+						<ul class="contenedor-menu-subItem">
+							
+
+
+	
+
+
+
+
+		
+
+
+
+		
+
+	
+
+	
+	
+		
+			
+		
+		
+		
+		
+	
+		
+			
+			
+		
+		
+	
+	
+	<li class="menu-subItem" itemcode="CARTAS">
+		
+			
+				<a href="/eBanking/cartaCredito/domestica.htm" id="EB_CARTA_CREDITO_DOMESTICA" name="cartaCredito/domestica.htm" nivel="2" class="blockUi" target="">
+			
+			
+		
+		
+			
+				Carta de crédito doméstica														
+			
+			
+		
+		</a>
+	</li>
+										
+
+
+
+
+	
+
+
+
+
+		
+
+
+
+		
+
+	
+
+	
+	
+		
+			
+		
+		
+		
+		
+	
+		
+			
+			
+		
+		
+	
+	
+	<li class="menu-subItem" itemcode="CARTAS">
+		
+			
+				<a href="/eBanking/cartaCredito/importacion.htm" id="EB_CARTA_CREDITO_IMPORTACION" name="cartaCredito/importacion.htm" nivel="2" class="blockUi" target="">
+			
+			
+		
+		
+			
+				Carta de crédito de importación														
+			
+			
+		
+		</a>
+	</li>
+										
+
+
+
+
+	
+
+
+
+
+		
+
+
+
+		
+
+	
+
+	
+	
+		
+			
+		
+		
+		
+		
+	
+		
+			
+			
+		
+		
+	
+	
+	<li class="menu-subItem" itemcode="CARTAS">
+		
+			
+				<a href="/eBanking/cartaCredito/standBy.htm" id="EB_CARTA_CREDITO_STAND_BY" name="cartaCredito/standBy.htm" nivel="2" class="blockUi" target="">
+			
+			
+		
+		
+			
+				Carta de crédito stand by														
+			
+			
+		
+		</a>
+	</li>
+										
+
+
+
+
+	
+
+
+
+
+		
+
+
+
+		
+
+	
+
+	
+	
+		
+			
+		
+		
+		
+		
+	
+		
+			
+			
+		
+		
+	
+	
+	<li class="menu-subItem" itemcode="CARTAS">
+		
+			
+				<a href="/eBanking/cartaCredito/enviadas.htm" id="EB_CARTA_CREDITO_COBRANZAS_ENVIADAS" name="cartaCredito/enviadas.htm" nivel="2" class="blockUi" target="">
+			
+			
+		
+		
+			
+				Cobranzas enviadas														
+			
+			
+		
+		</a>
+	</li>
+										
+
+
+						</ul>
+					</li>
+				
+			
+	
+
+
+
+
+
+
+
+
+
+	
+
+
+	
+
+
+
+
+
+
+	
+
+		
+			
+			
+		
+		
+	
+	
+
+
+	
+	
+		
+		
+		
+	
+
+
+
+	
+		
+	
+	
+
+	
+	
+	
+	
+			
+			
+				
+			
+	
+
+
+
+
+
+
+
+
+
+	
+
+
+	
+
+
+
+
+
+
+	
+
+		
+			
+			
+		
+		
+	
+	
+
+
+	
+	
+		
+		
+		
+	
+
+
+
+	
+		
+	
+	
+
+	
+	
+	
+	
+			
+			
+					
+					<li id="PARENT_EB_SOLICITUD_PROGRESO" class="menu-item  inactivo">
+											
+							
+						
+							<a id="EB_SOLICITUD_PROGRESO" href="/eBanking/solicitudes/solicitudProgreso.htm" class="blockUi" name="/eBanking/solicitudes/solicitudProgreso.htm" nivel="1" haschild="false" categorycode="SOLICITUDES" target="">
+						
+						
+							
+								Progreso
+							
+							
+													
+						</a>
+						<ul class="contenedor-menu-subItem">
+							
+						</ul>
+					</li>
+				
+			
+	
+
+
+		</ul>
+		
+		
+		
+	
+
+
+
+
+
+	
+	
+
+
+		
+	
+
+
+			
+			
+
+		
+		
+		
+		
+
+			
+		
+	
+	
+		  
+	
+		  
+
+		
+			
+				
+					
+				
+				
+			
+			
+		 
+	
+	<ul id="contenedor_items_SEGURIDAD" class="contenedor-menu-item hide" style="display: none;">				
+			
+
+
+
+
+
+
+
+	
+
+
+	
+
+
+
+
+
+
+	
+
+		
+			
+			
+		
+		
+	
+	
+
+
+	
+	
+		
+		
+		
+	
+
+
+
+	
+		
+	
+	
+
+	
+	
+	
+	
+			
+			
+					
+					<li id="PARENT_EB_CAMBIO_CLAVE" class="menu-item  inactivo">
+											
+							
+						
+							<a id="EB_CAMBIO_CLAVE" href="/eBanking/usuario/clave/modificacion.htm" class="blockUi" name="/eBanking/usuario/clave/modificacion.htm" nivel="1" haschild="false" categorycode="SEGURIDAD" target="">
+						
+						
+							
+								Cambio de contraseña
+							
+							
+													
+						</a>
+						<ul class="contenedor-menu-subItem">
+							
+						</ul>
+					</li>
+				
+			
+	
+
+<!-- (DTF00.04) -->
+		</ul>
+		
+		
+		
+	
+
+
+
+
+
+	
+	
+
+
+		
+	
+
+
+			
+			
+
+		
+		
+		
+		
+
+			
+		
+	
+	
+		  
+	
+		  
+
+		
+			
+				
+					
+				
+				
+			
+			
+		 
+	
+	<ul id="contenedor_items_ACTUALIZACIONDATOS" class="contenedor-menu-item hide" style="display: none;">				
+			
+
+
+
+
+
+
+
+	
+
+
+	
+
+
+
+
+
+
+	
+
+		
+			
+			
+		
+		
+	
+	
+
+
+	
+	
+		
+		
+		
+	
+
+
+
+	
+		
+	
+	
+
+	
+	
+	
+	
+			
+			
+					
+					<li id="PARENT_EB_ACTUALIZACION_DATOS_PRINCIPALES" class="menu-item  inactivo">
+											
+							
+						
+							<a id="EB_ACTUALIZACION_DATOS_PRINCIPALES" href="/eBanking/usuario/datosPrincipales/actualizacion/menu.htm" class="blockUi" name="/eBanking/usuario/datosPrincipales/actualizacion/menu.htm" nivel="1" haschild="false" categorycode="ACTUALIZACIONDATOS" target="">
+						
+						
+							
+								Datos principales
+							
+							
+													
+						</a>
+						<ul class="contenedor-menu-subItem">
+							
+						</ul>
+					</li>
+				
+			
+	
+
+<!-- (DTF00.04) -->
+
+
+
+
+
+
+
+	
+
+
+	
+
+
+
+
+
+
+	
+
+		
+			
+			
+		
+		
+	
+	
+
+
+	
+	
+		
+		
+		
+	
+
+
+
+	
+		
+	
+	
+
+	
+	
+	
+	
+			
+			
+					
+					<li id="PARENT_EB_MODIFICACION_DATOS_PERSONALES" class="menu-item  inactivo">
+											
+							
+						
+							<a id="EB_MODIFICACION_DATOS_PERSONALES" href="/eBanking/misDatos/datosPersonales.htm" class="blockUi" name="/eBanking/misDatos/datosPersonales.htm" nivel="1" haschild="false" categorycode="ACTUALIZACIONDATOS" target="">
+						
+						
+							
+								Datos personales
+							
+							
+													
+						</a>
+						<ul class="contenedor-menu-subItem">
+							
+						</ul>
+					</li>
+				
+			
+	
+
+
+
+
+
+
+
+
+
+	
+
+
+	
+
+
+
+
+
+
+	
+
+		
+			
+			
+		
+		
+	
+	
+
+
+	
+	
+		
+		
+		
+	
+
+
+
+	
+		
+	
+	
+
+	
+	
+	
+	
+			
+			
+					
+					<li id="PARENT_EB_MODIFICACION_DIRECCION_RESIDENCIAL_POSTAL" class="menu-item  inactivo">
+											
+							
+						
+							<a id="EB_MODIFICACION_DIRECCION_RESIDENCIAL_POSTAL" href="/eBanking/misDatos/modificacionDireccionResidencialPostal.htm" class="blockUi" name="/eBanking/misDatos/modificacionDireccionResidencialPostal.htm" nivel="1" haschild="false" categorycode="ACTUALIZACIONDATOS" target="">
+						
+						
+							
+								Dirección residencial
+							
+							
+													
+						</a>
+						<ul class="contenedor-menu-subItem">
+							
+						</ul>
+					</li>
+				
+			
+	
+
+<!-- (DTF35) -->
+
+
+
+
+
+
+
+	
+
+
+	
+
+
+
+
+
+
+	
+
+		
+			
+			
+		
+		
+	
+	
+
+
+	
+	
+		
+		
+		
+	
+
+
+
+	
+		
+	
+	
+
+	
+	
+	
+	
+			
+			
+				
+			
+	
+
+<!-- (DTF34) -->
+
+
+
+
+
+
+
+	
+
+
+	
+
+
+
+
+
+
+	
+
+		
+			
+			
+		
+		
+	
+	
+
+
+	
+	
+		
+		
+		
+	
+
+
+
+	
+		
+	
+	
+
+	
+	
+	
+	
+			
+			
+					
+					<li id="PARENT_EB_MODIFICACION_DATOS_EMPLEO_NEGOCIO" class="menu-item  inactivo">
+											
+							
+						
+							<a id="EB_MODIFICACION_DATOS_EMPLEO_NEGOCIO" href="/eBanking/misDatos/modificacionDatosEmpleoNegocio.htm" class="blockUi" name="/eBanking/misDatos/modificacionDatosEmpleoNegocio.htm" nivel="1" haschild="false" categorycode="ACTUALIZACIONDATOS" target="">
+						
+						
+							
+								Datos de empleo
+							
+							
+													
+						</a>
+						<ul class="contenedor-menu-subItem">
+							
+						</ul>
+					</li>
+				
+			
+	
+
+
+		</ul>
+		
+		
+		
+	
+
+
+
+
+
+	
+	
+
+
+		
+	
+
+
+			
+			
+
+		
+		
+		
+		
+
+			
+		
+	
+	
+		  
+	
+		  
+
+		
+			
+				
+					
+				
+				
+			
+			
+		 
+	
+	<ul id="contenedor_items_CONFIGURACION" class="contenedor-menu-item hide" style="display: none;">				
+			
+
+
+
+
+
+
+
+	
+
+
+	
+
+
+
+
+
+
+	
+
+		
+			
+			
+		
+		
+	
+	
+
+
+	
+	
+		
+		
+		
+	
+
+
+
+	
+		
+	
+	
+
+	
+	
+	
+	
+			
+			
+					
+					<li id="PARENT_EB_PERSONALIZACION_INFORMACION_CONSULTAS_CONSOLIDADAS" class="menu-item  inactivo">
+											
+							
+						
+							<a id="EB_PERSONALIZACION_INFORMACION_CONSULTAS_CONSOLIDADAS" href="/eBanking/configuracion/modificacionConsolidada.htm" class="blockUi" name="/eBanking/configuracion/modificacionConsolidada.htm" nivel="1" haschild="false" categorycode="CONFIGURACION" target="">
+						
+						
+							
+								Personalizar mis productos
+							
+							
+													
+						</a>
+						<ul class="contenedor-menu-subItem">
+							
+						</ul>
+					</li>
+				
+			
+	
+
+<!-- (DTF39) -->
+
+
+
+
+
+
+
+	
+
+
+	
+
+
+
+
+
+
+	
+
+		
+			
+			
+		
+		
+	
+	
+
+
+	
+	
+		
+		
+		
+	
+
+
+
+	
+		
+	
+	
+
+	
+	
+	
+	
+			
+			
+					
+					<li id="PARENT_EB_MODIFICACION_PRODUCTOS_DISPONIBLES" class="menu-item  inactivo">
+											
+							
+						
+							<a id="EB_MODIFICACION_PRODUCTOS_DISPONIBLES" href="/eBanking/configuracion/modificacionProductosDisponibles.htm" class="blockUi" name="/eBanking/configuracion/modificacionProductosDisponibles.htm" nivel="1" haschild="false" categorycode="CONFIGURACION" target="">
+						
+						
+							
+								Administrar productos
+							
+							
+													
+						</a>
+						<ul class="contenedor-menu-subItem">
+							
+						</ul>
+					</li>
+				
+			
+	
+
+<!-- (DTF38) -->
+
+
+
+
+
+
+
+	
+
+
+	
+
+
+
+
+
+
+	
+
+		
+			
+			
+		
+		
+	
+	
+
+
+	
+	
+		
+		
+		
+	
+
+
+
+	
+		
+	
+	
+
+	
+	
+	
+	
+			
+			
+				
+			
+	
+
+
+		</ul>
+		
+		
+		<!-- Lee de urlsProperties c/u de las rutas a mostrar. -->
+	
+
+
+
+
+
+	
+	
+
+
+		
+	
+
+		
+		</div>
+	</form>
+		 
+		</div>
+	</div>  
+	
+	<div id="outer">
+		<div class="contenedor-form-decorator">
+			<script>
+var ctx = "/eBanking";
+</script>
+
+
+ 
+
+
+
+
+
+
+	
+
+
+
+
+
+
+	<script type="text/javascript">
+		function up(){
+			window.location.href="/eBanking/productos/posicionConsolidada.htm?execution=e1s2&_eventId=up";
+		}
+	</script>
+
+	<div class="contenedor-titulo-seccion titulo-seccion "> 
+		
+			
+			
+				<div onclick="up();" class="blockUi" style="cursor:pointer;width: 80%;"> 	
+						<i class="fa ti ti-izquierda ti-lg " style="font-weight: bold;"></i>
+						Mis productos
+					</div>
+			
+					
+	</div>
+
+	
+	
+	
+	
+	
+
+	
+	
+
+
+
+
+
+
+
+
+
+<!-- <div class="solapa-container"> -->
+<form id="command" name="formSolapa" action="/eBanking/productos/posicionConsolidada.htm?execution=e1s2" method="post">
+<input type="hidden" name="_csrf" value="c14a542e-6e9f-47bd-b49f-22f673ff0501" maxlength="40">
+</form> 
+<div class="contenedor-encabezado titulo-contenido">
+	
+		
+		
+			AHORRA MAS - 50332008399 - 50332008399 - $ 104.36
+		
+	
+	<ul>
+		
+		
+
+
+
+
+
+
+
+
+
+
+
+	
+		
+	
+
+
+
+			
+			
+				
+				
+						
+								
+			
+		
+
+
+	
+
+	
+
+	<li class="solapa-container">	
+		
+			
+			
+				
+								
+			
+		
+						
+			<div id="solapa_detalleCuenta" class="solapaInactiva" onclick="setEventoSolapa('detalleCuenta')">
+			Detalle
+				</div>
+			
+				<script>
+					bloquearUIClick('#solapa_detalleCuenta');
+				</script>
+									
+	</li>
+	
+
+		
+
+
+
+
+
+
+
+
+
+
+
+	
+		
+	
+
+
+
+			
+			
+				
+				
+						
+								
+			
+		
+
+
+	
+
+	
+
+	<li class="solapa-container">	
+		
+			
+				
+				
+			
+			
+		
+						
+			<div id="solapa_movimientos" class="solapaActiva" onclick="">
+			Movimientos
+				</div>
+									
+	</li>
+	
+
+		
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
+
+			
+			
+				
+								
+			
+		
+
+
+	
+
+		
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
+
+			
+			
+				
+								
+			
+		
+
+
+	
+
+		
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
+
+			
+			
+				
+				
+						
+								
+			
+		
+
+
+	
+
+		
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
+
+			
+			
+				
+				
+						
+								
+			
+		
+
+
+	
+
+		
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
+
+			
+			
+				
+				
+						
+								
+			
+		
+
+
+	
+
+		
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
+
+			
+			
+				
+				
+						
+								
+			
+		
+
+
+	
+
+		
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
+
+			
+			
+				
+				
+						
+								
+			
+		
+
+
+	
+
+	
+	</ul>
+</div>
+
+<script type="text/javascript">
+function setEventoSolapa(eventoSolapa){
+	window.location.href="/eBanking/productos/posicionConsolidada.htm?execution=e1s2&_eventId="+eventoSolapa;
+}
+</script>	
+
+	
+	<form id="movimientosDeCuentaCommand" name="formResumen" action="/eBanking/productos/posicionConsolidada.htm?execution=e1s2" method="post">
+		<input type="hidden" id="evento" maxlength="40">
+		<input type="hidden" name="nroReferenciaSeleccionado" id="nroReferenciaSeleccionado" maxlength="40">
+		<div class="contenedor-formulario">
+			<div class="subtitulo">
+				Opciones de búsqueda 
+			</div>
+			<div class="lineaSeparadora"></div>
+			
+			<input type="hidden" id="evento" maxlength="40">
+			<input type="hidden" id="idMov" maxlength="40">
+			
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+			
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+			
+			<ul>						
+				<li class="row">
+					<label>
+						Tipo de movimiento
+					</label>
+					<div class="value">
+						
+						<select id="tipoMovimiento" nombreenumpropietaria="TxnAction" name="tipoMovimiento" class="select"><option value="0">Todos</option><option value="TipoMovimiento,CREDIT">Crédito</option><option value="TipoMovimiento,DEBIT">Débito</option><option value="TipoMovimiento,LAST_20" selected="true">Últimos 20 Movimientos</option></select>
+
+					</div>	
+				</li>
+				<li class="row filter" style="display: none;">
+					<label>
+						Orden
+					</label>
+					<div class="value">
+						
+						<select id="id_orden" nombreenumpropietaria="OrderType" name="orden" class="select"><option value="0">Seleccionar</option><option value="Orden,ASC">Ascendente</option><option value="Orden,DESC">Descendente</option></select>
+
+					</div>	 
+				</li>
+				
+				<li class="row filter" style="display: none;">
+					<div class="grupo">
+						<label>Monto desde</label>
+						<input id="importesMayoresA" name="importesMayoresA" class=" value validate-cash" type="text" value="" maxlength="40">
+					</div>
+					<div class="grupo">
+						<label>Monto hasta</label>
+						<input id="importesMenoresA" name="importesMenoresA" class=" value validate-cash" onkeypress="return esNumero(event)" type="text" value="" maxlength="40">
+					</div>
+				</li>
+				
+				<li class="row filter" style="display: none;">
+					<div class="grupo">
+						<label class="obligatorio">Fecha desde</label>						
+												
+						<input id="fechaDesde" name="fechaDesde" class="dateformat value hasDatepicker" value="04-12-2025" onchange="javascript:clearPeriodo();" type="text" size="10" maxlength="40"><img class="ui-datepicker-trigger" src="/eBanking/images/IN/icoFormCalendario.png" alt="Calendario" title="Calendario">
+					</div>
+					<div class="grupo">
+						<label class="obligatorio">Fecha hasta</label>					
+									
+						<input id="fechaHasta" name="fechaHasta" class="dateformat value hasDatepicker" value="04-03-2026" onchange="javascript:clearPeriodo();" type="text" size="10" maxlength="40"><img class="ui-datepicker-trigger" src="/eBanking/images/IN/icoFormCalendario.png" alt="Calendario" title="Calendario">
+					</div>
+				</li>
+				
+				<li class="row">&nbsp;&nbsp;</li>
+				<li class="contenedor-centrado">	
+					
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+	
+
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+	
+			
+		
+	
+
+
+
+
+<button type="submit" name="_eventId_buscar" class="boton-terceario blockUi" onclick="" style="">
+	<p>
+		<i class="fa fa- fa-lg"></i>
+		Buscar
+	</p>
+</button>
+
+
+
+
+				</li>
+			</ul>
+				
+			<div class="subtitulo">
+				Movimientos para el periodo seleccionado
+			</div>
+			<div class="lineaSeparadora"></div>
+			
+				<div class="barraSubTituloMovimiento">
+					Movimientos Pendientes
+				</div>		
+			
+				
+					
+					
+						<div id="divMovimientosInexistentes">
+							
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
+
+<div class="panelComunicacion iconoInfo ">
+	
+	<div class="encabezado">
+		No se encontraron resultados.
+	</div>
+	
+	
+</div>
+
+
+						</div>
+					
+				
+			
+			<div class="barraSubTituloMovimiento">
+				Movimientos Completados
+			</div>
+				
+			<input id="numMovSig" name="numMovSig" type="hidden" value="" maxlength="40"> 
+			<input id="flechaApretada" name="flechaApretada" type="hidden" value="" maxlength="40"> 
+			
+				
+					<div class="jmesa">
+																	
+							
+								
+																						
+									
+									
+									
+					                
+					                
+										
+					                													
+								
+							
+																	
+							
+								
+																						
+									
+									
+									
+					                
+					                
+										
+					                													
+								
+							
+																	
+							
+								
+																						
+									
+									
+									
+					                
+					                
+										
+					                													
+								
+							
+																	
+							
+								
+																						
+									
+									
+									
+					                
+					                
+										
+					                													
+								
+							
+																	
+							
+								
+																						
+									
+									
+									
+					                
+					                
+										
+					                													
+								
+							
+																	
+							
+								
+																						
+									
+									
+									
+					                
+					                
+										
+					                													
+								
+							
+																	
+							
+								
+																						
+									
+									
+									
+					                
+					                
+										
+					                													
+								
+							
+																	
+							
+								
+																						
+									
+									
+									
+					                
+					                
+										
+					                													
+								
+							
+																	
+							
+								
+																						
+									
+									
+									
+					                
+					                
+										
+					                													
+								
+							
+																	
+							
+								
+																						
+									
+									
+									
+					                
+					                
+										
+					                													
+								
+							
+																	
+							
+								
+																						
+									
+									
+									
+					                
+					                
+										
+					                													
+								
+							
+																	
+							
+								
+																						
+									
+									
+									
+					                
+					                
+										
+					                													
+								
+							
+																	
+							
+								
+																						
+									
+									
+									
+					                
+					                
+										
+					                													
+								
+							
+																	
+							
+								
+																						
+									
+									
+									
+					                
+					                
+										
+					                													
+								
+							
+																	
+							
+								
+																						
+									
+									
+									
+					                
+					                
+										
+					                													
+								
+							
+																	
+							
+								
+																						
+									
+									
+									
+					                
+					                
+										
+					                													
+								
+							
+																	
+							
+								
+																						
+									
+									
+									
+					                
+					                
+										
+					                													
+								
+							
+																	
+							
+								
+																						
+									
+									
+									
+					                
+					                
+										
+					                													
+								
+							
+																	
+							
+								
+																						
+									
+									
+									
+					                
+					                
+										
+					                													
+								
+							
+																	
+							
+								
+																						
+									
+									
+									
+					                
+					                
+										
+					                													
+								
+							
+						<div class="jmesa">
+<table id="table_1" border="0" cellpadding="0" cellspacing="0" class="blockRow">
+	<thead>
+	<tr class="header">
+		<td><div>Fecha</div></td>
+		<td><div>Concepto</div></td>
+		<td><div>Débitos</div></td>
+		<td><div>Créditos</div></td>
+		<td><div>Saldo</div></td>
+	</tr>
+	</thead>
+	<tbody class="tbody">
+	<tr id="table_1_row1" class="odd" onclick="javascript:document.getElementById('uniqueIdDetalle').value='309242104;0';detalleMovimiento();" onmouseover="this.className='highlight'" onmouseout="this.className='odd'">
+		<td>
+										04-mar-2026
+									</td>
+		<td>
+					                	N/D COMPRA POS COMPRA -POS/1102 REY PASEO ALBROOK&gt;URB ALBROOK CLLPA
+					                </td>
+		<td>
+										
+					                		
+												
+								            		$ 16.63
+												
+												
+												
+					                	
+					                </td>
+		<td>
+					                	
+					                </td>
+		<td>
+					                		
+												
+								            		$ 104.36
+												
+												
+																							
+																				                	
+						                </td>
+	</tr>
+	<tr id="table_1_row2" class="even" onclick="javascript:document.getElementById('uniqueIdDetalle').value='308812345;0';detalleMovimiento();" onmouseover="this.className='highlight'" onmouseout="this.className='even'">
+		<td>
+										03-mar-2026
+									</td>
+		<td>
+					                	N/D COMPRA POS COMPRA -POS/FCIAS ARROCHA CLAYTON&gt;CLAYTO
+					                </td>
+		<td>
+										
+					                		
+												
+								            		$ 12.94
+												
+												
+												
+					                	
+					                </td>
+		<td>
+					                	
+					                </td>
+		<td>
+					                		
+												
+								            		$ 120.99
+												
+												
+																							
+																				                	
+						                </td>
+	</tr>
+	<tr id="table_1_row3" class="odd" onclick="javascript:document.getElementById('uniqueIdDetalle').value='308058909;0';detalleMovimiento();" onmouseover="this.className='highlight'" onmouseout="this.className='odd'">
+		<td>
+										03-mar-2026
+									</td>
+		<td>
+					                	N/D COMPRA POS COMPRA -POS/MINI SUPER FOOD MARKET&gt;CLAYT
+					                </td>
+		<td>
+										
+					                		
+												
+								            		$ 3.85
+												
+												
+												
+					                	
+					                </td>
+		<td>
+					                	
+					                </td>
+		<td>
+					                		
+												
+								            		$ 133.93
+												
+												
+																							
+																				                	
+						                </td>
+	</tr>
+	<tr id="table_1_row4" class="even" onclick="javascript:document.getElementById('uniqueIdDetalle').value='308029837;0';detalleMovimiento();" onmouseover="this.className='highlight'" onmouseout="this.className='even'">
+		<td>
+										03-mar-2026
+									</td>
+		<td>
+					                	N/D COMPRA POS COMPRA -POS/90176455 TERPEL EDS ALBROOK
+					                </td>
+		<td>
+										
+					                		
+												
+								            		$ 22.95
+												
+												
+												
+					                	
+					                </td>
+		<td>
+					                	
+					                </td>
+		<td>
+					                		
+												
+								            		$ 137.78
+												
+												
+																							
+																				                	
+						                </td>
+	</tr>
+	<tr id="table_1_row5" class="odd" onclick="javascript:document.getElementById('uniqueIdDetalle').value='306520592;0';detalleMovimiento();" onmouseover="this.className='highlight'" onmouseout="this.className='odd'">
+		<td>
+										02-mar-2026
+									</td>
+		<td>
+					                	N/D COMPRA POS COMPRA -POS/SUPER 99 TBA  MUERTO&gt;RICARDO
+					                </td>
+		<td>
+										
+					                		
+												
+								            		$ 6.63
+												
+												
+												
+					                	
+					                </td>
+		<td>
+					                	
+					                </td>
+		<td>
+					                		
+												
+								            		$ 160.73
+												
+												
+																							
+																				                	
+						                </td>
+	</tr>
+	<tr id="table_1_row6" class="even" onclick="javascript:document.getElementById('uniqueIdDetalle').value='254605519;1';detalleMovimiento();" onmouseover="this.className='highlight'" onmouseout="this.className='even'">
+		<td>
+										28-feb-2026
+									</td>
+		<td>
+					                	N/C INTERESES/RENDIMIENTOS AH
+					                </td>
+		<td>
+										
+					                </td>
+		<td>
+					                	
+					                		
+												
+								            		$ 0.57
+												
+												
+												
+					                	
+					                </td>
+		<td>
+					                		
+												
+								            		$ 167.36
+												
+												
+																							
+																				                	
+						                </td>
+	</tr>
+	<tr id="table_1_row7" class="odd" onclick="javascript:document.getElementById('uniqueIdDetalle').value='305991945;1';detalleMovimiento();" onmouseover="this.className='highlight'" onmouseout="this.className='odd'">
+		<td>
+										28-feb-2026
+									</td>
+		<td>
+					                	TRANSFERENCIA A ACH 0301010305554 Fundacion Panhelenic D
+					                </td>
+		<td>
+										
+					                		
+												
+								            		$ 304.00
+												
+												
+												
+					                	
+					                </td>
+		<td>
+					                	
+					                </td>
+		<td>
+					                		
+												
+								            		$ 166.79
+												
+												
+																							
+																				                	
+						                </td>
+	</tr>
+	<tr id="table_1_row8" class="even" onclick="javascript:document.getElementById('uniqueIdDetalle').value='305991343;1';detalleMovimiento();" onmouseover="this.className='highlight'" onmouseout="this.className='even'">
+		<td>
+										28-feb-2026
+									</td>
+		<td>
+					                	TRANSFERENCIA A ACH 0301010305554 Fundacion Panhelenic A
+					                </td>
+		<td>
+										
+					                		
+												
+								            		$ 107.50
+												
+												
+												
+					                	
+					                </td>
+		<td>
+					                	
+					                </td>
+		<td>
+					                		
+												
+								            		$ 470.79
+												
+												
+																							
+																				                	
+						                </td>
+	</tr>
+	<tr id="table_1_row9" class="odd" onclick="javascript:document.getElementById('uniqueIdDetalle').value='305189029;1';detalleMovimiento();" onmouseover="this.className='highlight'" onmouseout="this.className='odd'">
+		<td>
+										27-feb-2026
+									</td>
+		<td>
+					                	N/D COMISION TRANSACCION ATM NACI
+					                </td>
+		<td>
+										
+					                		
+												
+								            		$ 1.87
+												
+												
+												
+					                	
+					                </td>
+		<td>
+					                	
+					                </td>
+		<td>
+					                		
+												
+								            		$ 578.29
+												
+												
+																							
+																				                	
+						                </td>
+	</tr>
+	<tr id="table_1_row10" class="even" onclick="javascript:document.getElementById('uniqueIdDetalle').value='305189029;0';detalleMovimiento();" onmouseover="this.className='highlight'" onmouseout="this.className='even'">
+		<td>
+										27-feb-2026
+									</td>
+		<td>
+					                	N/D RETIRO CLAVE NACIONAL RETIRO -ATM/BANCO GENERAL&gt;BG/PACIFICCENT
+					                </td>
+		<td>
+										
+					                		
+												
+								            		$ 45.00
+												
+												
+												
+					                	
+					                </td>
+		<td>
+					                	
+					                </td>
+		<td>
+					                		
+												
+								            		$ 580.16
+												
+												
+																							
+																				                	
+						                </td>
+	</tr>
+	<tr id="table_1_row11" class="odd" onclick="javascript:document.getElementById('uniqueIdDetalle').value='304666308;0';detalleMovimiento();" onmouseover="this.className='highlight'" onmouseout="this.className='odd'">
+		<td>
+										27-feb-2026
+									</td>
+		<td>
+					                	N/D COMPRA POS COMPRA -POS/CHOCOLATISIMO&gt;CL VIA PORRAS
+					                </td>
+		<td>
+										
+					                		
+												
+								            		$ 11.88
+												
+												
+												
+					                	
+					                </td>
+		<td>
+					                	
+					                </td>
+		<td>
+					                		
+												
+								            		$ 625.16
+												
+												
+																							
+																				                	
+						                </td>
+	</tr>
+	<tr id="table_1_row12" class="even" onclick="javascript:document.getElementById('uniqueIdDetalle').value='303604507;1';detalleMovimiento();" onmouseover="this.className='highlight'" onmouseout="this.className='even'">
+		<td>
+										26-feb-2026
+									</td>
+		<td>
+					                	N/D SEGURO DE FRAUDE
+					                </td>
+		<td>
+										
+					                		
+												
+								            		$ 2.09
+												
+												
+												
+					                	
+					                </td>
+		<td>
+					                	
+					                </td>
+		<td>
+					                		
+												
+								            		$ 637.04
+												
+												
+																							
+																				                	
+						                </td>
+	</tr>
+	<tr id="table_1_row13" class="odd" onclick="javascript:document.getElementById('uniqueIdDetalle').value='299218842;0';detalleMovimiento();" onmouseover="this.className='highlight'" onmouseout="this.className='odd'">
+		<td>
+										23-feb-2026
+									</td>
+		<td>
+					                	N/D COMPRA POS COMPRA -POS/STEVEN´S ALBROOK MERCHANT&gt;C.
+					                </td>
+		<td>
+										
+					                		
+												
+								            		$ 34.60
+												
+												
+												
+					                	
+					                </td>
+		<td>
+					                	
+					                </td>
+		<td>
+					                		
+												
+								            		$ 639.13
+												
+												
+																							
+																				                	
+						                </td>
+	</tr>
+	<tr id="table_1_row14" class="even" onclick="javascript:document.getElementById('uniqueIdDetalle').value='297425578;1';detalleMovimiento();" onmouseover="this.className='highlight'" onmouseout="this.className='even'">
+		<td>
+										21-feb-2026
+									</td>
+		<td>
+					                	N/D COMISION TRANSACCION ATM NACI
+					                </td>
+		<td>
+										
+					                		
+												
+								            		$ 1.87
+												
+												
+												
+					                	
+					                </td>
+		<td>
+					                	
+					                </td>
+		<td>
+					                		
+												
+								            		$ 673.73
+												
+												
+																							
+																				                	
+						                </td>
+	</tr>
+	<tr id="table_1_row15" class="odd" onclick="javascript:document.getElementById('uniqueIdDetalle').value='297425578;0';detalleMovimiento();" onmouseover="this.className='highlight'" onmouseout="this.className='odd'">
+		<td>
+										21-feb-2026
+									</td>
+		<td>
+					                	N/D RETIRO CLAVE NACIONAL RETIRO -ATM/BANCO GENERAL&gt;BG/SUCURSAL CL
+					                </td>
+		<td>
+										
+					                		
+												
+								            		$ 80.00
+												
+												
+												
+					                	
+					                </td>
+		<td>
+					                	
+					                </td>
+		<td>
+					                		
+												
+								            		$ 675.60
+												
+												
+																							
+																				                	
+						                </td>
+	</tr>
+	<tr id="table_1_row16" class="even" onclick="javascript:document.getElementById('uniqueIdDetalle').value='297142730;0';detalleMovimiento();" onmouseover="this.className='highlight'" onmouseout="this.className='even'">
+		<td>
+										20-feb-2026
+									</td>
+		<td>
+					                	N/D COMPRAS VISA DEBITO PLAYTOWN&gt;                             PA
+					                </td>
+		<td>
+										
+					                		
+												
+								            		$ 11.24
+												
+												
+												
+					                	
+					                </td>
+		<td>
+					                	
+					                </td>
+		<td>
+					                		
+												
+								            		$ 755.60
+												
+												
+																							
+																				                	
+						                </td>
+	</tr>
+	<tr id="table_1_row17" class="odd" onclick="javascript:document.getElementById('uniqueIdDetalle').value='297093241;0';detalleMovimiento();" onmouseover="this.className='highlight'" onmouseout="this.className='odd'">
+		<td>
+										20-feb-2026
+									</td>
+		<td>
+					                	N/D COMPRA POS COMPRA -POS/SUPER 99 ALBROOK&gt;TERMINAL DE
+					                </td>
+		<td>
+										
+					                		
+												
+								            		$ 49.88
+												
+												
+												
+					                	
+					                </td>
+		<td>
+					                	
+					                </td>
+		<td>
+					                		
+												
+								            		$ 766.84
+												
+												
+																							
+																				                	
+						                </td>
+	</tr>
+	<tr id="table_1_row18" class="even" onclick="javascript:document.getElementById('uniqueIdDetalle').value='297055228;0';detalleMovimiento();" onmouseover="this.className='highlight'" onmouseout="this.className='even'">
+		<td>
+										20-feb-2026
+									</td>
+		<td>
+					                	N/D COMPRA POS COMPRA -POS/CHOCOLATISIMO&gt;CL VIA PORRAS
+					                </td>
+		<td>
+										
+					                		
+												
+								            		$ 4.49
+												
+												
+												
+					                	
+					                </td>
+		<td>
+					                	
+					                </td>
+		<td>
+					                		
+												
+								            		$ 816.72
+												
+												
+																							
+																				                	
+						                </td>
+	</tr>
+	<tr id="table_1_row19" class="odd" onclick="javascript:document.getElementById('uniqueIdDetalle').value='297035954;0';detalleMovimiento();" onmouseover="this.className='highlight'" onmouseout="this.className='odd'">
+		<td>
+										20-feb-2026
+									</td>
+		<td>
+					                	N/D COMPRA POS COMPRA -POS/KING SPORT&gt;OMAR TORRIJOS ALB
+					                </td>
+		<td>
+										
+					                		
+												
+								            		$ 51.00
+												
+												
+												
+					                	
+					                </td>
+		<td>
+					                	
+					                </td>
+		<td>
+					                		
+												
+								            		$ 821.21
+												
+												
+																							
+																				                	
+						                </td>
+	</tr>
+	<tr id="table_1_row20" class="even" onclick="javascript:document.getElementById('uniqueIdDetalle').value='295638044;0';detalleMovimiento();" onmouseover="this.className='highlight'" onmouseout="this.className='even'">
+		<td>
+										19-feb-2026
+									</td>
+		<td>
+					                	N/D COMPRA POS COMPRA -POS/GASTRO CLINICA S.A.  SAN FRA
+					                </td>
+		<td>
+										
+					                		
+												
+								            		$ 15.00
+												
+												
+												
+					                	
+					                </td>
+		<td>
+					                	
+					                </td>
+		<td>
+					                		
+												
+								            		$ 872.21
+												
+												
+																							
+																				                	
+						                </td>
+	</tr>
+	</tbody>
+	<tbody><tr class="toolbar">
+		<td colspan="5">
+		<table border="0" cellspacing="0">
+			<tbody><tr>
+				<td width="25%" style="text-align: left; font-weight: normal;padding-top:0px; padding-bottom:0px;">Página 1 de 1</td>
+				<td colspan="4" width="10%" style="text-align: left;padding-top:0px; padding-bottom:0px;"></td>
+				<td width="2%" style="text-align: right;padding-top:0px; padding-bottom:0px;"><img src="/eBanking/images/table/png/paginacionBack_off.png" alt="Página Anterior"></td>
+				<td width="2%" style="text-align: right;padding-top:0px; padding-bottom:0px;"><img src="/eBanking/images/table/png/paginacionNext_off.png" alt="Página Siguiente"></td>
+			</tr>
+			<tr>
+				<td width="25%" style="font-weight: bold;text-align: left;padding-top:0px; padding-bottom:0px;" class="tdFirst">Descargar como:</td>
+				<td style="text-align: left;padding-top:0px; padding-bottom:0px;" width="10%"><a href="javascript:jQuery.jmesa.setExportToLimit('table_1','pdf');onInvokeExportAction('table_1','export')"><img src="/eBanking/images/table/exportPDF-off.png" title="Imprimir/Guardar" onmouseover="this.src='/eBanking/images/table/exportPDF-on.png'" onmouseout="this.src='/eBanking/images/table/exportPDF-off.png'" alt="pdf"></a></td>
+				<td style="text-align: left;padding-top:0px; padding-bottom:0px;" width="10%"><a href="javascript:jQuery.jmesa.setExportToLimit('table_1','excel');onInvokeExportAction('table_1','export')"><img src="/eBanking/images/table/exportXLS-off.png" title="Exportar a Excel" onmouseover="this.src='/eBanking/images/table/exportXLS-on.png'" onmouseout="this.src='/eBanking/images/table/exportXLS-off.png'" alt="excel"></a></td>
+				<td style="text-align: left;padding-top:0px; padding-bottom:0px;" width="10%"><a href="javascript:jQuery.jmesa.setExportToLimit('table_1','csv');onInvokeExportAction('table_1','export')"><img src="/eBanking/images/table/exportCSV-off.png" title="Exportar a CSV" onmouseover="this.src='/eBanking/images/table/exportCSV-on.png'" onmouseout="this.src='/eBanking/images/table/exportCSV-off.png'" alt="csv"></a></td>
+				<td style="text-align: left;padding-top:0px; padding-bottom:0px;" width="10%"><a href="javascript:jQuery.jmesa.setExportToLimit('table_1','pdfp');onInvokeExportAction('table_1','export')"><img src="/eBanking/images/table/exportTXT-off.png" title="Exportar a TXT" onmouseover="this.src='/eBanking/images/table/exportTXT-on.png'" onmouseout="this.src='/eBanking/images/table/exportTXT-off.png'" alt="pdfp"></a></td>
+				<td style="text-align: left;padding-top:0px; padding-bottom:0px;" width="50%"></td>
+			</tr>
+
+		</tbody></table>
+		</td>
+	</tr>
+</tbody></table>
+</div>
+<script type="text/javascript">
+	jQuery.jmesa.addTableFacade('table_1');
+	jQuery.jmesa.setMaxRowsToLimit('table_1','20');
+	jQuery.jmesa.setPageToLimit('table_1','1');
+	jQuery.jmesa.setOnInvokeAction('table_1','onInvokeAction');
+	jQuery.jmesa.setOnInvokeExportAction('table_1','onInvokeExportAction');
+</script>
+					</div>
+					<input type="hidden" id="uniqueIdDetalle" name="uniqueIdDetalle" maxlength="40">
+					
+						<div class="row filter contenedor-centrado" style="display: none;">
+							<br>
+								
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+	
+
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+	
+			
+		
+	
+
+
+
+
+<button type="submit" name="_eventId_exportarTodo" class="boton-terceario" onclick="showLoadingMessage(); descarga();" style="">
+	<p>
+		<i class="fa fa-download fa-lg"></i>
+		Descargar todo
+	</p>
+</button>
+
+
+
+													 
+													 
+													 
+								
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+	
+
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+	
+			
+		
+	
+
+
+
+
+<button type="submit" name="_eventId_exportarTodoTxt" class="boton-terceario" onclick="showLoadingMessage(); descarga();" style="">
+	<p>
+		<i class="fa fa-download fa-lg"></i>
+		Descargar TXT
+	</p>
+</button>
+
+
+													 
+						</div>
+					
+				
+				
+			
+		</div>
+	<input type="hidden" name="_csrf" value="c14a542e-6e9f-47bd-b49f-22f673ff0501" maxlength="40">
+</form>
+
+	<script>
+		jQuery(document).ready(function($) {
+			$.datepicker.setDefaults({maxDate: '0'}); 
+			$k("#fechaDesde").datepicker($.datepicker.regional[lan]);
+			$k("#fechaHasta").datepicker($.datepicker.regional[lan]);
+			$k(".hasDatepicker").mask("99-99-9999");
+
+			showFilters(true);
+			
+			$k('#tipoMovimiento').click(
+				function(event){
+					showFilters(event.target.value == 'TipoMovimiento,LAST_20');
+				});
+		});
+		
+		function showFilters(value){
+			if(value){
+				$k('.filter').hide()
+			}else{
+				$k('.filter').show()
+			}			
+		}
+		
+		function showElement(element,value){
+	
+		}
+		
+// 		function detalleCuenta(uniId){
+// 			document.location.href='/eBanking/productos/cuenta/detalle.htm?uniqueID='+uniId;
+// 		}
+		
+		function clearPeriodo(){
+			
+		}
+		
+		function clearFechas(){
+			document.getElementById('fechaHasta').value = "";
+			document.getElementById('fechaDesde').value = "";
+		}
+		
+		function detalleMovimiento(){
+ 			document.getElementById('evento').name='_eventId_detalleMovimiento';
+ 			document.formResumen.submit();			
+		}
+	</script>
+
+	<script>
+		function descarga() {
+			var myInterval = setInterval(function(){ 
+		    	try {
+		    		DescargaServiceAjaxFacade.descarga({
+		    			callback:function(data) {
+		    				var procesoTerminado = data;
+		    	    		if (procesoTerminado) {
+		    	    			jQuery.unblockUI();
+		    	    			clearInterval(myInterval);
+		    	    		}    	    				
+		    			}
+		    		});
+		    	} catch (e) {
+					jQuery.unblockUI();
+					clearInterval(myInterval);
+		    	}
+		    }, 3000);
+		}
+	</script>
+		</div>
+		
+			<div class="contenedor-panel-derecho">
+				
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+var ctx = "/eBanking";
+</script>
+
+
+ 
+
+
+
+
+
+
+
+
+<div class="seccion">
+	<i class="fa ti ti-alertas" style="margin-left: px; float: left; display: inline; margin-top:5px"></i>
+	<p class="titulo">
+		Último Ingreso
+	</p>	
+
+	<p class="texto">
+	04-mar-2026 - 01:14 PM 
+	</p>	
+
+</div>
+
+
+<div class="accesosDirectos">
+
+	<p style="font-size: 14px; font-weight: bold; color: #12609e; margin:5px;">
+		Accesos directos				
+	</p>
+
+
+
+	<div class="box-accesos">
+
+		
+		<a class="blockUi" href="/eBanking/transferencias/terceros.htm?directaccess=true">
+			
+			<img src="/eBanking/images/menu/transf-terceros.png" style="font-size: 50px; ">
+			<p style="padding: 0 4px;">
+				Transferencias a terceros		
+			</p>
+		</a>
+		
+
+		
+		<a class="blockUi" href="/eBanking/transferencias/cuentasPropias.htm?directaccess=true">
+			
+			<img src="/eBanking/images/menu/cuentas-propias.png" style="font-size: 50px; ">
+			<p style="padding: 0 4px;">
+			  Transferencias cuentas propias	
+			</p>
+		</a>
+		
+
+	
+		
+		
+		<a class="blockUi" href="/eBanking/productos/tarjetaCredito/pagos/porMenu.htm?directaccess=true">
+			
+			<img src="/eBanking/images/menu/pago-mi-tdc.png" style="font-size: 50px; ">
+			<p style="padding: 0 4px;">
+			Pagar mis tarjetas	
+			</p>
+		</a>
+		
+
+		
+		<a class="blockUi" href="/eBanking/pagos/pagoServiciosAdheridos.htm?directaccess=true">
+			
+			<img src="/eBanking/images/menu/servicios.png" style="font-size: 50px; ">
+			
+			<p style="padding: 0 4px;">
+			Pagar mis servicios	
+				
+			</p>
+		</a>
+		
+
+	
+		
+			<a class="blockUi" href="/eBanking/productos/tarjetaCredito/pagosATercerosOtrosBancos.htm?directaccess=true">
+				
+				<img src="/eBanking/images/menu/pago-tdc-otros-bancos.png" style="font-size: 50px; ">
+				<p style="padding: 0 4px;"> 
+				Pagar tarjetas de otros bancos	
+				</p>
+			</a>
+		
+	
+		
+			<a class="blockUi" href="/eBanking/pagos/prestamos/debitoEnCuenta.htm?directaccess=true">
+				
+				<img src="/eBanking/images/menu/mis-prestamos.png" style="font-size: 50px; ">
+				<p style="padding: 0 4px;">
+				Pagar mis préstamos
+				</p>
+			</a>
+		
+	</div>
+</div>
+
+
+
+
+	
+		
+		    <div id="mis_puntos">
+				<i class="fa ti ti-estrella" style="margin-left: px; float: left; display: inline;"></i>
+				
+					<a class="boton-puntos detalle blockUi" href="/eBanking/puntos/detalle.htm?directaccess=true">
+						Detalle de puntos
+					</a>
+							
+			</div>
+		
+	
+	
+	
+		
+		
+		
+		
+			<div id="linea">
+				<div id="linea_separadora"></div>
+			</div>
+			<center>
+				<a href="/eBanking/solicitudes/solicitudProgreso.htm" class="blockUi" target="">
+									
+									
+					
+						
+							<img src="/eBanking/marketing-media/IN/progreso_es.gif" title="Progreso" width="200" height="50" style="cursor:pointer">				
+						
+						
+					
+				</a>
+			</center>		
+		
+	
+	
+	
+		<div id="linea">
+			<div id="linea_separadora"></div>
+		</div>
+		<center>
+			
+			<!--Si la url definida no comienza con el contextPath definido, se considera que se debe abrir en otra penstana -->
+			
+			<img src="/eBanking/marketing-media/IN/Campania_Default_Campania_Default_panel_linkmall_1420665297799_1420731966100.jpg" title="LinkPromo" width="200" height="50" onclick="popularVirtualMall()" style="cursor:pointer"> 
+
+		</center>
+	
+	
+		
+	
+	
+	<div id="linea">
+		<div id="linea_separadora"></div>
+	</div>
+	<center>
+		
+		<!--Si la url definida no comienza con el contextPath definido, se considera que se debe abrir en otra penstaña -->
+			
+		
+	</center>
+	
+
+
+			</div>
+		
+		</div>
+		
+	</div>
+	
+		
+	
+	<div class="footerNew">
+<!-- 		<div id="footerLogoDiv"> -->
+
+<!-- 		<div> -->
+		
+		<ul>
+			<li class="footerNewUl">
+				Copyright © 2023 Global Bank Corp.
+			</li>
+			<li class="fragmentoNewUl">
+				Primero la gente
+			</li>
+	   </ul>
+		
+	</div><div id="disabledZone" style="float: right; display: none;">
+    <div id="modalDialog">
+        <div id="fondoModal" style="font-size:12px;font-weight:bold;font-family:Arial, Helvetica, Garuda, sans-serif;height: 75px;padding-left: 2px;text-align: center;">
+			<div style="padding-bottom:5px;">Tiempo de espera agotado, por favor intente realizar la operación nuevamente.</div>
+    		<button type="button" class="boton-primario texto-boton" onclick="jQuery.unblockUI();document.location.href='/eBanking/productos/posicionConsolidada.htm';">
+            	<p>Aceptar</p>
+            </button>
+        </div>
+    </div>
+</div>
+
+	<input id="menuSelectedItem" type="hidden" value="EB_POSICION_CONSOLIDADA" maxlength="40">
+ 	
+	<script type="text/javascript">
+		agregarComportamientoMenu(); //Carga el comportamiento del menu.
+		bloquearUIClick('.menuTab1');
+		bloquearUIClick('.blockUi');
+		bloquearUIClick('.blockRow .tbody tr');
+ 		validateFields();//Agrega comportamiento dependiendo de los class seteados. (ver validations.js)
+ 		showSelectedMenu(); 
+ 		agregarMaximoDefaultEmail(65);
+ 		agregarMaximoDefault(40);
+ 		//impedirPegarEnInputs();
+ 		inputsSinCaracteresEspeciales();
+ 		if(false){
+		  		//Esconder seccion-programadas
+		  		$k('#seccion-programada').remove();
+ 		}
+	</script>
+
+
+
+ 
+
+
+<div id="ui-datepicker-div" class="ui-datepicker ui-widget ui-widget-content ui-helper-clearfix ui-corner-all"></div></body></html>
