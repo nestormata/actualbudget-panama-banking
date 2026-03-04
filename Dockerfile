@@ -1,7 +1,12 @@
 # ─── Stage 1: Builder ────────────────────────────────────────────────────────
-FROM node:22-alpine AS builder
+FROM node:22-bookworm-slim AS builder
 
 WORKDIR /app
+
+# Native build tools needed for better-sqlite3
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    python3 make g++ \
+    && rm -rf /var/lib/apt/lists/*
 
 # Install dependencies first (layer-caching)
 COPY package.json package-lock.json* ./

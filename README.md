@@ -124,28 +124,19 @@ The Docker healthcheck reads this file automatically and marks the container unh
 
 ## Configuration reference
 
-`config.json` structure:
+`config.json` structure (see `config.example.json` for a complete template):
 
 ```json
 {
-  "actualBudget": {
-    "serverUrl": "http://actual-server:5006",
-    "password": "...",
-    "syncId": "your-budget-uuid"
-  },
   "syncIntervalCron": "0 */6 * * *",
   "banks": [
     {
-      "id": "globalbank",
-      "enabled": true,
-      "credentials": {
-        "username": "${GLOBALBANK_USER}",
-        "password": "${GLOBALBANK_PASS}"
-      },
+      "bankId": "globalbank-pa",
       "accounts": [
         {
           "bankAccountId": "50332008399",
-          "actualAccountId": "actual-account-uuid"
+          "actualBudgetAccountId": "actual-account-uuid",
+          "daysToFetch": 30
         }
       ]
     }
@@ -155,15 +146,13 @@ The Docker healthcheck reads this file automatically and marks the container unh
 
 | Field | Description |
 |---|---|
-| `actualBudget.serverUrl` | URL of your ActualBudget server |
-| `actualBudget.syncId` | Budget file sync ID (from ActualBudget settings) |
 | `syncIntervalCron` | Cron expression for automatic sync schedule |
-| `banks[].id` | Bank identifier — must match a registered connector (`globalbank`) |
-| `banks[].enabled` | Set `false` to skip a bank without removing it |
+| `banks[].bankId` | Bank identifier — must match a registered connector (`globalbank-pa`) |
 | `banks[].accounts[].bankAccountId` | Account number as shown in the bank portal |
-| `banks[].accounts[].actualAccountId` | UUID of the matching account in ActualBudget |
+| `banks[].accounts[].actualBudgetAccountId` | UUID of the matching account in ActualBudget |
+| `banks[].accounts[].daysToFetch` | How many past days of transactions to fetch (default: 30) |
 
-All credential values can reference environment variables using `${VAR_NAME}` syntax.
+ActualBudget connection settings are provided via environment variables (see below).
 
 ---
 
@@ -173,7 +162,9 @@ All credential values can reference environment variables using `${VAR_NAME}` sy
 |---|---|---|
 | `GLOBALBANK_USER` | Yes | GlobalBank portal username |
 | `GLOBALBANK_PASS` | Yes | GlobalBank portal password |
+| `ACTUAL_SERVER_URL` | Yes | ActualBudget server URL (e.g. `http://actual-budget:5006`) |
 | `ACTUAL_PASSWORD` | Yes | ActualBudget server password |
+| `ACTUAL_SYNC_ID` | Yes | Budget sync ID (the `group_id` from ActualBudget's Advanced settings) |
 | `LOG_LEVEL` | No | Pino log level (`debug`, `info`, `warn`, `error`). Default: `info` |
 | `ACTUAL_NETWORK_NAME` | No | Docker network name where ActualBudget is running. Default: `actualbudget_default` |
 
