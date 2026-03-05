@@ -103,22 +103,78 @@ export class BGeneralConnector implements BankConnector {
       }
     }
 
-    // AngularJS renders account rows asynchronously — poll via JS rather than
-    // waitForSelector which can miss elements that are temporarily display:none
+    // Wait until AngularJS has fully bound account data to the dashboard items.
+    // Checking only querySelectorAll().length > 0 is not enough — elements render
+    // as empty shells before Angular's digest cycle populates scope.account.
     try {
       await page.waitForFunction(
-        (sel) => document.querySelectorAll(sel).length > 0,
+        (sel) => {
+          const items = document.querySelectorAll(sel);
+          if (items.length === 0) return false;
+          const win = window as unknown as {
+            angular?: { element: (el: Element) => { scope?: () => Record<string, unknown> } };
+          };
+          if (!win.angular) return false;
+          return Array.from(items).some((item) => {
+            const sc = win.angular!.element(item).scope?.();
+            const account = sc?.['account'] as Record<string, unknown> | undefined;
+            return !!account?.['number'];
+          });
+        },
         SEL.DASHBOARD_SENTINEL,
         { timeout: 120000, polling: 1000 },
       );
     } catch {
       const url = page.url();
-      const hasAngular = await page.evaluate(() => !!(window as unknown as { angular?: unknown }).angular).catch(() => false);
-      this.logger.error({ url, hasAngular }, 'Dashboard Angular items never appeared — possible bot detection or slow render');
-      throw new AuthError(BANK_ID, `Dashboard accounts did not load. URL: ${url}, angular: ${hasAngular}`);
+      const diag = await page.evaluate((sel) => {
+        const win = window as unknown as {
+          angular?: { element: (el: Element) => { scope?: () => Record<string, unknown> } };
+        };
+        const items = document.querySelectorAll(sel);
+        const firstScope = items.length > 0 && win.angular
+          ? Object.keys(win.angular.element(items[0]).scope?.() ?? {}).filter(k => !k.startsWith('$'))
+          : [];
+        return {
+          itemCount: items.length,
+          hasAngular: !!win.angular,
+          firstScopeKeys: firstScope,
+          html: document.documentElement.outerHTML.slice(0, 50000),
+        };
+      }, SEL.DASHBOARD_SENTINEL).catch((e) => ({ itemCount: -1, hasAngular: false, firstScopeKeys: [], html: String(e) }));
+      this.logger.error({ url, ...diag }, 'Dashboard Angular items never had scope data — full page HTML attached');
+      throw new AuthError(BANK_ID, `Dashboard accounts did not load. URL: ${url}, angular: ${diag.hasAngular}, items: ${diag.itemCount}`);
     }
 
     this.cachedAccounts = await parseAccounts(page);
+
+    if (this.cachedAccounts.length === 0) {
+      // Angular items appeared but parseAccounts returned nothing — dump full diagnostic
+      const url = page.url();
+      const diag = await page.evaluate((sel) => {
+        const win = window as unknown as {
+          angular?: { element: (el: Element) => { scope?: () => Record<string, unknown> } };
+        };
+        const items = document.querySelectorAll(sel);
+        const scopes = Array.from(items).slice(0, 5).map((item) => {
+          if (!win.angular) return null;
+          const sc = win.angular.element(item).scope?.() ?? {};
+          return Object.fromEntries(Object.entries(sc).filter(([k]) => !k.startsWith('$')));
+        });
+        return {
+          itemCount: items.length,
+          hasAngular: !!win.angular,
+          scopes,
+          html: document.documentElement.outerHTML.slice(0, 50000),
+        };
+      }, SEL.DASHBOARD_SENTINEL).catch((e) => ({ itemCount: -1, hasAngular: false, scopes: [], html: String(e) }));
+      this.logger.error({ url, ...diag }, 'parseAccounts returned 0 accounts despite Angular items present — full page HTML attached');
+      throw new ConnectorStateError(BANK_ID, `parseAccounts returned 0 accounts. URL: ${url}`);
+    }
+
+    this.logger.info(
+      { accountCount: this.cachedAccounts.length, accounts: this.cachedAccounts.map(a => ({ id: a.id, type: a.type })) },
+      'Accounts loaded from portal',
+    );
     return this.cachedAccounts;
   }
 
