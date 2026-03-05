@@ -54,6 +54,8 @@ export class BGeneralConnector implements BankConnector {
   private connected = false;
   private readonly credentials: BgeneralCredentials;
   private readonly logger = createLogger({ bankId: BANK_ID });
+  /** Cached after first successful fetch to avoid repeated dashboard reloads. */
+  private cachedAccounts: BankAccount[] | null = null;
 
   constructor(credentials: BgeneralCredentials) {
     this.credentials = credentials;
@@ -69,6 +71,7 @@ export class BGeneralConnector implements BankConnector {
         userAgent:
           'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
         extraHTTPHeaders: { 'Accept-Language': 'es-PA,es;q=0.9,en;q=0.8' },
+        viewport: { width: 1280, height: 800 },
       });
       this.page = await context.newPage();
     } catch (e) {
@@ -83,10 +86,31 @@ export class BGeneralConnector implements BankConnector {
 
   async getAccounts(): Promise<BankAccount[]> {
     this.assertConnected('getAccounts');
+    if (this.cachedAccounts) return this.cachedAccounts;
+
     const page = this.page!;
-    await page.goto(SEL.ACCOUNTS_URL, { timeout: 60000, waitUntil: 'networkidle' });
-    await page.waitForSelector(SEL.DASHBOARD_SENTINEL, { timeout: 60000 });
-    return parseAccounts(page);
+    // Only navigate if not already on the dashboard (avoids reload after login redirect)
+    if (!page.url().includes('/group/guest/dashboard')) {
+      await page.goto(SEL.ACCOUNTS_URL, { timeout: 60000, waitUntil: 'domcontentloaded' });
+    }
+
+    // AngularJS renders account rows asynchronously — poll via JS rather than
+    // waitForSelector which can miss elements that are temporarily display:none
+    try {
+      await page.waitForFunction(
+        (sel) => document.querySelectorAll(sel).length > 0,
+        SEL.DASHBOARD_SENTINEL,
+        { timeout: 120000, polling: 1000 },
+      );
+    } catch {
+      const url = page.url();
+      const hasAngular = await page.evaluate(() => !!(window as unknown as { angular?: unknown }).angular).catch(() => false);
+      this.logger.error({ url, hasAngular }, 'Dashboard Angular items never appeared — possible bot detection or slow render');
+      throw new AuthError(BANK_ID, `Dashboard accounts did not load. URL: ${url}, angular: ${hasAngular}`);
+    }
+
+    this.cachedAccounts = await parseAccounts(page);
+    return this.cachedAccounts;
   }
 
   // ── BankConnector.getTransactions() ─────────────────────────────────────
@@ -139,6 +163,7 @@ export class BGeneralConnector implements BankConnector {
     this.browser = null;
     this.page = null;
     this.connected = false;
+    this.cachedAccounts = null;
   }
 
   // ── Private helpers ──────────────────────────────────────────────────────
