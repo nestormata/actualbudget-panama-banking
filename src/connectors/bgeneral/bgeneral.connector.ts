@@ -109,11 +109,11 @@ export class BGeneralConnector implements BankConnector {
     await page.goto(account.uniqueId, { timeout: 30000 });
 
     if (account.type === 'credit') {
-      await page.waitForSelector(SEL.CC_ROW_SENTINEL, { timeout: 20000 });
+      await page.waitForSelector(SEL.CC_ROW_SENTINEL, { timeout: 60000 });
       return parseCreditCardTransactions(page, accountId);
     }
 
-    await page.waitForSelector(SEL.TRANSACTION_ROW_SENTINEL, { timeout: 20000 });
+    await page.waitForSelector(SEL.TRANSACTION_ROW_SENTINEL, { timeout: 60000 });
     return parseTransactions(page, accountId);
   }
 
@@ -171,7 +171,7 @@ export class BGeneralConnector implements BankConnector {
     // Confirm post-login dashboard
     const dashboard = page.locator(SEL.DASHBOARD_SENTINEL);
     try {
-      await dashboard.waitFor({ state: 'visible', timeout: 20000 });
+      await dashboard.waitFor({ state: 'visible', timeout: 60000 });
     } catch {
       const currentUrl = page.url();
       throw new AuthError(BANK_ID, `Login did not reach dashboard. Current URL: ${currentUrl}`);
@@ -181,7 +181,7 @@ export class BGeneralConnector implements BankConnector {
   private async answerSecurityQuestion(page: Page): Promise<void> {
     // Wait for the question to appear
     try {
-      await page.waitForSelector(SEL.SECURITY_QUESTION_TEXT, { timeout: 15000 });
+      await page.waitForSelector(SEL.SECURITY_QUESTION_TEXT, { timeout: 60000 });
     } catch {
       throw new AuthError(BANK_ID, 'Security question step did not appear');
     }
@@ -215,7 +215,7 @@ export class BGeneralConnector implements BankConnector {
 
     // Wait for the password step to render
     try {
-      await page.waitForSelector(SEL.PASSWORD_INPUT, { timeout: 15000 });
+      await page.waitForSelector(SEL.PASSWORD_INPUT, { timeout: 60000 });
     } catch {
       throw new AuthError(BANK_ID, 'Password step did not appear after answering security question');
     }
