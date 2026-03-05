@@ -84,8 +84,8 @@ export class BGeneralConnector implements BankConnector {
   async getAccounts(): Promise<BankAccount[]> {
     this.assertConnected('getAccounts');
     const page = this.page!;
-    await page.goto(SEL.ACCOUNTS_URL, { timeout: 30000 });
-    await page.waitForSelector(SEL.DASHBOARD_SENTINEL, { timeout: 30000 });
+    await page.goto(SEL.ACCOUNTS_URL, { timeout: 60000, waitUntil: 'networkidle' });
+    await page.waitForSelector(SEL.DASHBOARD_SENTINEL, { timeout: 60000 });
     return parseAccounts(page);
   }
 
@@ -168,10 +168,10 @@ export class BGeneralConnector implements BankConnector {
     // Step 2 — Password
     await this.submitPassword(page);
 
-    // Confirm post-login dashboard
-    const dashboard = page.locator(SEL.DASHBOARD_SENTINEL);
+    // Confirm post-login by waiting for URL to navigate away from login flow
+    // (Angular dashboard elements render lazily — getAccounts() handles the sentinel wait)
     try {
-      await dashboard.waitFor({ state: 'visible', timeout: 60000 });
+      await page.waitForURL((url) => !url.pathname.includes('/login'), { timeout: 60000 });
     } catch {
       const currentUrl = page.url();
       throw new AuthError(BANK_ID, `Login did not reach dashboard. Current URL: ${currentUrl}`);
