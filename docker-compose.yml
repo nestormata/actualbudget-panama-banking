@@ -39,7 +39,8 @@ services:
     env_file:
       - .env
     volumes:
-      - ./config.json:/app/config.json:ro
+      - ./config.json/config.json:/app/config.json:ro
+      - ./data:/app/data
     networks:
       - actualbudget_network
     restart: unless-stopped

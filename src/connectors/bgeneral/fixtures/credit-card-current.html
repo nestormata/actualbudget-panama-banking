@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+<head><meta charset="UTF-8"><title>Tarjeta de Crédito - fixture</title></head>
+<body>
+<!--
+  Fixture for parseCreditCardTransactions() tests.
+  Tab #menu2 (Estado de cuenta) must be present for the "previous statement" path.
+  Unix timestamp 1772504899000 ≈ 01-MAR-2026 (DD/MM/YYYY = 01/03/2026)
+-->
+<script>
+(function () {
+  var lastMovements = [
+    {
+      dateMovement: 1772504899000,
+      natureMovement: 'D',
+      amountMovement: 60.00,
+      description: 'ZOHO-CRM SINGAPORE SGP',
+      id: 'cc-last-001'
+    },
+    {
+      dateMovement: 1772504899000,
+      natureMovement: 'D',
+      amountMovement: 15.99,
+      description: 'SERVICIO STREAMING MENSUAL',
+      id: 'cc-last-002'
+    }
+  ];
+
+  var stmtMovements = [
+    {
+      dateMovement: 1771208950000,
+      natureMovement: 'D',
+      amountMovement: 0.18,
+      description: 'ITBMS CARGO POR SEGURO',
+      id: 'cc-stmt-001'
+    },
+    {
+      dateMovement: 1771208950000,
+      natureMovement: 'C',
+      amountMovement: 100.00,
+      description: 'PAGO RECIBIDO GRACIAS',
+      id: 'cc-stmt-002'
+    }
+  ];
+
+  window.angular = {
+    element: function (el) {
+      var lastRows = document.querySelectorAll('[ng-repeat*="movement in cardCtrl.globalMovements.lastMovements.movements"]');
+      var stmtRows = document.querySelectorAll('[ng-repeat*="statementMovements in cardCtrl.statementMovements.movements"]');
+
+      var lastIdx = Array.from(lastRows).indexOf(el);
+      if (lastIdx >= 0) {
+        return { scope: function () { return { movement: lastMovements[lastIdx] }; } };
+      }
+
+      var stmtIdx = Array.from(stmtRows).indexOf(el);
+      if (stmtIdx >= 0) {
+        return { scope: function () { return { statementMovements: stmtMovements[stmtIdx] }; } };
+      }
+
+      return { scope: function () { return {}; } };
+    }
+  };
+})();
+</script>
+
+<!-- Tab navigation -->
+<a href="#menu1" class="a-tabs-content-item">Últimos movimientos</a>
+<a href="#menu2" class="a-tabs-content-item">Estado de cuenta</a>
+
+<!-- Current open-period rows -->
+<div ng-repeat="movement in cardCtrl.globalMovements.lastMovements.movements | filter:{} track by $index" class="a-table__row row ng-scope"></div>
+<div ng-repeat="movement in cardCtrl.globalMovements.lastMovements.movements | filter:{} track by $index" class="a-table__row row ng-scope"></div>
+
+<!-- Closed statement rows (normally hidden until tab click; parser reads them directly) -->
+<div ng-repeat="statementMovements in cardCtrl.statementMovements.movements | filter:{} track by $index" class="a-table__row row ng-scope"></div>
+<div ng-repeat="statementMovements in cardCtrl.statementMovements.movements | filter:{} track by $index" class="a-table__row row ng-scope"></div>
+
+</body>
+</html>

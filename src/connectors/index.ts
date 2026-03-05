@@ -1,5 +1,6 @@
 import { connectorRegistry } from '../shared/connector-registry.js';
 import { GlobalBankConnector } from './globalbank/globalbank.connector.js';
+import { createBGeneralConnector } from './bgeneral/bgeneral.connector.js';
 
 /**
  * Register all bank connectors.
@@ -13,5 +14,9 @@ connectorRegistry.register('globalbank-pa', () => {
   }
   return new GlobalBankConnector({ username, password });
 });
+
+// Credentials are loaded from BGENERAL_USER, BGENERAL_PASS, BGENERAL_SECURITY_QA
+// at instantiation time inside createBGeneralConnector().
+connectorRegistry.register('bgeneral-pa', () => createBGeneralConnector());
 
 export { connectorRegistry };

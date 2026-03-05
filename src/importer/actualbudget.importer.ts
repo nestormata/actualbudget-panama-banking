@@ -2,6 +2,7 @@ import * as actualApi from '@actual-app/api';
 import * as fs from 'node:fs';
 import type { CanonicalTransaction } from '../shared/types.js';
 import { createLogger } from '../shared/logger.js';
+import { ImportRegistry } from './import-registry.js';
 
 export interface ActualBudgetConfig {
   serverUrl: string;
@@ -9,23 +10,31 @@ export interface ActualBudgetConfig {
   syncId: string;
   /** Local directory for ActualBudget data files. */
   dataDir: string;
+  /** Directory for per-account import registry files. Defaults to /app/data. */
+  registryDir?: string;
 }
 
 export interface ImportResult {
   added: number;
   skipped: number;
+  deduplicated: number;
   errors: Array<{ accountId: string; error: Error }>;
 }
 
 /**
  * Imports canonical transactions into a self-hosted ActualBudget instance.
  * Uses `imported_id` on each transaction for idempotency (no duplicates).
+ * Also maintains a local per-account registry to prevent re-importing
+ * transactions that were deleted from ActualBudget.
  */
 export class ActualBudgetImporter {
   private connected = false;
   private readonly logger = createLogger({ bankId: 'actualbudget' });
+  private readonly registryDir: string;
 
-  constructor(private readonly config: ActualBudgetConfig) {}
+  constructor(private readonly config: ActualBudgetConfig) {
+    this.registryDir = config.registryDir ?? '/app/data';
+  }
 
   /**
    * Initialize the ActualBudget API and download the budget.
@@ -46,6 +55,7 @@ export class ActualBudgetImporter {
 
   /**
    * Import canonical transactions into ActualBudget.
+   * Transactions already present in the local registry are skipped.
    * @param transactions List of normalized transactions to import
    * @param accountMapping Map of bankAccountId → actualBudgetAccountId
    */
@@ -53,7 +63,7 @@ export class ActualBudgetImporter {
     transactions: CanonicalTransaction[],
     accountMapping: Map<string, string>,
   ): Promise<ImportResult> {
-    const result: ImportResult = { added: 0, skipped: 0, errors: [] };
+    const result: ImportResult = { added: 0, skipped: 0, deduplicated: 0, errors: [] };
 
     // Group transactions by bankAccountId
     const byBankAccount = new Map<string, CanonicalTransaction[]>();
@@ -76,7 +86,24 @@ export class ActualBudgetImporter {
       }
 
       try {
-        const importPayload = txs.map((tx) => ({
+        // Filter out transactions already in the local registry
+        const registry = new ImportRegistry(this.registryDir, txs[0]?.bankId ?? 'unknown', bankAccountId);
+        registry.load();
+
+        const newTxs = txs.filter((tx) => !registry.has(tx.id));
+        const deduplicated = txs.length - newTxs.length;
+        result.deduplicated += deduplicated;
+
+        if (deduplicated > 0) {
+          this.logger.info(
+            { bankAccountId, deduplicated },
+            `Skipped ${deduplicated} already-imported transaction(s) via local registry`,
+          );
+        }
+
+        if (newTxs.length === 0) continue;
+
+        const importPayload = newTxs.map((tx) => ({
           account: actualAccountId,
           date: tx.date,
           amount: tx.amount,
@@ -90,6 +117,9 @@ export class ActualBudgetImporter {
         const importResult = await actualApi.importTransactions(actualAccountId, importPayload);
         const added = importResult.added?.length ?? 0;
         result.added += added;
+
+        // Record newly imported IDs in the registry
+        registry.addAll(newTxs.map((tx) => tx.id));
 
         this.logger.info(
           { bankAccountId, actualAccountId, added },
@@ -115,3 +145,4 @@ export class ActualBudgetImporter {
     }
   }
 }
+

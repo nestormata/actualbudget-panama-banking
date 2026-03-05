@@ -57,8 +57,11 @@ Edit `config.json` with your ActualBudget server URL, budget file sync ID, and y
 
 ```bash
 cat > .env <<'EOF'
-GLOBALBANK_USER=your_username
-GLOBALBANK_PASS=your_password
+GLOBALBANK_USER=your_globalbank_username
+GLOBALBANK_PASS=your_globalbank_password
+BGENERAL_USER=your_bgeneral_username
+BGENERAL_PASS=your_bgeneral_password
+BGENERAL_SECURITY_QA=[{"pattern":"regex1","answer":"answer1"},{"pattern":"regex2","answer":"answer2"}]
 ACTUAL_PASSWORD=your_actualbudget_password
 EOF
 ```
@@ -160,13 +163,18 @@ ActualBudget connection settings are provided via environment variables (see bel
 
 | Variable | Required | Description |
 |---|---|---|
-| `GLOBALBANK_USER` | Yes | GlobalBank portal username |
-| `GLOBALBANK_PASS` | Yes | GlobalBank portal password |
+| `GLOBALBANK_USER` | Yes* | GlobalBank portal username |
+| `GLOBALBANK_PASS` | Yes* | GlobalBank portal password |
+| `BGENERAL_USER` | Yes* | Banco General portal username |
+| `BGENERAL_PASS` | Yes* | Banco General portal password |
+| `BGENERAL_SECURITY_QA` | Yes* | JSON array of `{ "pattern": "<regex>", "answer": "<answer>" }` pairs. The connector logs the exact question text (field `securityQuestion`) at `info` level on every login and at `warn` level when no pattern matches — use those log entries to craft or update your regex patterns. |
 | `ACTUAL_SERVER_URL` | Yes | ActualBudget server URL (e.g. `http://actual-budget:5006`) |
 | `ACTUAL_PASSWORD` | Yes | ActualBudget server password |
 | `ACTUAL_SYNC_ID` | Yes | Budget sync ID (the `group_id` from ActualBudget's Advanced settings) |
 | `LOG_LEVEL` | No | Pino log level (`debug`, `info`, `warn`, `error`). Default: `info` |
 | `ACTUAL_NETWORK_NAME` | No | Docker network name where ActualBudget is running. Default: `actualbudget_default` |
+
+> \* Only required if that bank is configured in `config.json`.
 
 ---
 

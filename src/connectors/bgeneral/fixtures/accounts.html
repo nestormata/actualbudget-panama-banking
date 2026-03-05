@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+<head><meta charset="UTF-8"><title>Cuentas - fixture</title></head>
+<body>
+<!--
+  Fixture for parseAccounts() tests.
+  Provides a mock window.angular that returns scope data for each .bgp-dash-table-item row.
+  Real classType values: SavingsAccount | CheckingAccount | CreditCard | BGProfuture
+-->
+<script>
+(function () {
+  var scopeData = [
+    {
+      account: {
+        number: 'uuid-savings-001',
+        maskedNumber: '04-01-00-000001-0',
+        name: 'Cuenta Principal',
+        classType: 'SavingsAccount',
+        currentBalance: 500.00,
+        availableBalance: 500.00,
+        type: 4,
+        sequence: 0,
+        credit: true,
+      }
+    },
+    {
+      account: {
+        number: 'uuid-savings-002',
+        maskedNumber: '04-01-00-000002-0',
+        name: 'Ahorros Extra',
+        classType: 'SavingsAccount',
+        currentBalance: 150.75,
+        availableBalance: 150.75,
+        type: 4,
+        sequence: 1,
+        credit: true,
+      }
+    },
+    {
+      account: {
+        number: 'uuid-credit-001',
+        maskedNumber: '**** 6155',
+        name: 'MASTERCARD ESENCIAL',
+        classType: 'CreditCard',
+        currentBalance: 1234.56,
+        availableBalance: 9000.00,
+        type: 43,
+        sequence: 2,
+        credit: true,
+      }
+    }
+  ];
+
+  window.angular = {
+    element: function (el) {
+      var rows = document.querySelectorAll('.bgp-dash-table-item');
+      var idx = Array.from(rows).indexOf(el);
+      return {
+        scope: function () {
+          return scopeData[idx] || {};
+        }
+      };
+    }
+  };
+})();
+</script>
+
+<!-- Account rows — each has a navigation link with /group/guest/ in the href -->
+<div class="bgp-dash-table-item ng-scope">
+  <a href="https://zonasegura.bgeneral.com/group/guest/detalle-de-cuenta-de-ahorro?origin=0">Ver movimientos</a>
+</div>
+<div class="bgp-dash-table-item ng-scope">
+  <a href="https://zonasegura.bgeneral.com/group/guest/detalle-de-cuenta-de-ahorro?origin=1">Ver movimientos</a>
+</div>
+<div class="bgp-dash-table-item ng-scope">
+  <a href="https://zonasegura.bgeneral.com/group/guest/detalle-de-tarjeta-de-credito?origin=2">Ver movimientos</a>
+</div>
+
+</body>
+</html>

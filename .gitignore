@@ -5,6 +5,7 @@ actual-data/
 
 # Secrets
 .env
+config.json/config.json
 
 # Database files
 *.db
@@ -18,3 +19,6 @@ actual-data/
 
 # Test coverage
 coverage/
+
+# Import registry files
+data/**/*.txt

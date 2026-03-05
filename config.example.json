@@ -10,6 +10,22 @@
           "daysToFetch": 30
         }
       ]
+    },
+    {
+      "bankId": "bgeneral-pa",
+      "_comment": "Credentials and security Q&A go in env vars only: BGENERAL_USER, BGENERAL_PASS, BGENERAL_SECURITY_QA",
+      "accounts": [
+        {
+          "bankAccountId": "your-bgeneral-checking-account-id",
+          "actualBudgetAccountId": "your-actual-budget-account-id",
+          "daysToFetch": 30
+        },
+        {
+          "bankAccountId": "your-bgeneral-credit-card-id",
+          "actualBudgetAccountId": "your-actual-budget-credit-card-id",
+          "daysToFetch": 30
+        }
+      ]
     }
   ]
 }

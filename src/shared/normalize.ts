@@ -7,9 +7,22 @@ const MONTH_MAP: Record<string, string> = {
   jul: '07', ago: '08', sep: '09', oct: '10', nov: '11', dic: '12',
 };
 
-/** Parse a date string in DD-mon-YYYY format (GlobalBank portal) to ISO 8601 YYYY-MM-DD. */
+/** Parse a date string to ISO 8601 YYYY-MM-DD.
+ *  Supports:
+ *  - DD-mon-YYYY  (GlobalBank: "04-mar-2026")
+ *  - DD/MM/YYYY   (Banco General: "04/03/2026")
+ */
 function parseDate(raw: string): string {
-  const parts = raw.trim().split('-');
+  const trimmed = raw.trim();
+
+  // DD/MM/YYYY
+  if (/^\d{2}\/\d{2}\/\d{4}$/.test(trimmed)) {
+    const [day, month, year] = trimmed.split('/');
+    return `${year}-${month}-${day}`;
+  }
+
+  // DD-mon-YYYY
+  const parts = trimmed.split('-');
   if (parts.length !== 3) throw new Error(`Cannot parse date: "${raw}"`);
   const [day, monStr, year] = parts;
   const month = MONTH_MAP[monStr.toLowerCase()];

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head><meta charset="UTF-8"><title>Movimientos - fixture</title></head>
+<body>
+<!--
+  Fixture for parseTransactions() tests.
+  Uses Unix timestamps: 1741046400000 = 04/03/2026 (DD/MM/YYYY)
+-->
+<script>
+(function () {
+  var movements = [
+    {
+      dateMovement: 1741046400000,
+      natureMovement: 'C',
+      amountMovement: 913.00,
+      description: 'TRANSFERENCIA ENTRADA EMPRESA EJEMPLO',
+      id: '800346461'
+    },
+    {
+      dateMovement: 1741046400000,
+      natureMovement: 'D',
+      amountMovement: 20.00,
+      description: 'YAPPY BG A JUAN PEREZ',
+      id: '799159595'
+    },
+    {
+      dateMovement: 1740960000000,
+      natureMovement: 'D',
+      amountMovement: 7.49,
+      description: 'SERVICIO DIGITAL MENSUAL',
+      id: '786165765'
+    }
+  ];
+
+  window.angular = {
+    element: function (el) {
+      var rows = document.querySelectorAll('[ng-repeat="movement in accCtrl.product_movements"]');
+      var idx = Array.from(rows).indexOf(el);
+      return {
+        scope: function () {
+          return { movement: movements[idx] };
+        }
+      };
+    }
+  };
+})();
+</script>
+
+<div ng-repeat="movement in accCtrl.product_movements" class="ng-scope"></div>
+<div ng-repeat="movement in accCtrl.product_movements" class="ng-scope"></div>
+<div ng-repeat="movement in accCtrl.product_movements" class="ng-scope"></div>
+
+</body>
+</html>
