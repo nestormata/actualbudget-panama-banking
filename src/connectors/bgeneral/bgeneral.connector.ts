@@ -171,10 +171,10 @@ export class BGeneralConnector implements BankConnector {
       CreditCard: 'credit', LoanAccount: 'loan',
     };
     this.cachedAccounts = (rawAccounts ?? [])
-      .filter((a) => a.classType !== 'BGProfuture' && a.number && a.href)
-      .filter((a, i, arr) => arr.findIndex(b => b.number === a.number) === i) // deduplicate mobile/desktop rows
+      .filter((a) => a.classType !== 'BGProfuture' && a.maskedNumber && a.href)
+      .filter((a, i, arr) => arr.findIndex(b => b.maskedNumber === a.maskedNumber) === i) // deduplicate mobile/desktop rows
       .map((a): BankAccount => ({
-        id: a.number,
+        id: a.maskedNumber,
         name: a.name || a.maskedNumber,
         type: accountTypeMap[a.classType] ?? 'unknown',
         balance: Math.round(a.currentBalance * 100),

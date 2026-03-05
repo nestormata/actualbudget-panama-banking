@@ -65,9 +65,9 @@ export async function parseAccounts(page: Page): Promise<BankAccount[]> {
   }, SEL.ACCOUNT_ROW);
 
   return rawAccounts
-    .filter((a) => a.classType !== 'BGProfuture' && a.number && a.href)
+    .filter((a) => a.classType !== 'BGProfuture' && a.maskedNumber && a.href)
     .map((a): BankAccount => ({
-      id: a.number,
+      id: a.maskedNumber,
       name: a.name || a.maskedNumber,
       type: mapAccountType(a.classType),
       balance: Math.round(a.currentBalance * 100),

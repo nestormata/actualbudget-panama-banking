@@ -63,10 +63,10 @@ describe('parseAccounts()', () => {
     expect(savings.length).toBeGreaterThanOrEqual(1);
   });
 
-  it('account id is the portal UUID (number field)', async () => {
+  it('account id is the masked account number (stable across sessions)', async () => {
     await page.setContent(loadFixture('accounts.html'));
     const [first] = await parseAccounts(page);
-    expect(first.id).toBe('uuid-savings-001');
+    expect(first.id).toBe('04-01-00-000001-0');
   });
 
   it('uniqueId contains the navigation href', async () => {

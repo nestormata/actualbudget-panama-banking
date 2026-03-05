@@ -16,7 +16,7 @@
     {
       "bankId": "bgeneral-pa",
       "_comment": "Credentials go in env vars only: BGENERAL_USER, BGENERAL_PASS, BGENERAL_SECURITY_QA",
-      "_howToFindBankAccountId": "Log in to zonasegura.bgeneral.com, open DevTools console and run: angular.element(document.querySelector('.bgp-dash-table-item')).scope().account.number",
+      "_howToFindBankAccountId": "Log in to zonasegura.bgeneral.com, open DevTools console and run: angular.element(document.querySelector('.bgp-dash-table-item')).scope().account.maskedNumber  (note: use maskedNumber, NOT number — the 'number' field is a session-specific UUID that changes on every login)",
       "_howToFindActualBudgetAccountId": "In ActualBudget, click on an account — the UUID is in the URL: /accounts/<uuid>",
       "accounts": [
         {
