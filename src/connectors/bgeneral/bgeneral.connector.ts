@@ -91,7 +91,16 @@ export class BGeneralConnector implements BankConnector {
     const page = this.page!;
     // Only navigate if not already on the dashboard (avoids reload after login redirect)
     if (!page.url().includes('/group/guest/dashboard')) {
-      await page.goto(SEL.ACCOUNTS_URL, { timeout: 60000, waitUntil: 'domcontentloaded' });
+      try {
+        await page.goto(SEL.ACCOUNTS_URL, { timeout: 60000, waitUntil: 'domcontentloaded' });
+      } catch (e) {
+        // ERR_ABORTED can occur if a redirect is already in-flight — wait for it to settle
+        if ((e as Error).message.includes('ERR_ABORTED')) {
+          await page.waitForLoadState('domcontentloaded', { timeout: 30000 }).catch(() => {});
+        } else {
+          throw e;
+        }
+      }
     }
 
     // AngularJS renders account rows asynchronously — poll via JS rather than
@@ -193,10 +202,15 @@ export class BGeneralConnector implements BankConnector {
     // Step 2 — Password
     await this.submitPassword(page);
 
-    // Confirm post-login by waiting for URL to navigate away from login flow
-    // (Angular dashboard elements render lazily — getAccounts() handles the sentinel wait)
+    // Confirm post-login: wait for URL to reach the Liferay dashboard (not just leave /login)
+    // then wait for the page to fully settle — prevents ERR_ABORTED race in getAccounts()
     try {
-      await page.waitForURL((url) => !url.pathname.includes('/login'), { timeout: 60000 });
+      await page.waitForURL(
+        (url) => url.pathname.startsWith('/group/guest/'),
+        { timeout: 60000 },
+      );
+      // Let the page finish loading before any subsequent navigation attempts
+      await page.waitForLoadState('domcontentloaded', { timeout: 30000 });
     } catch {
       const currentUrl = page.url();
       throw new AuthError(BANK_ID, `Login did not reach dashboard. Current URL: ${currentUrl}`);
