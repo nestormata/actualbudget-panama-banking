@@ -47,7 +47,10 @@ export async function parseAccounts(page: Page): Promise<BankAccount[]> {
       const a = sc?.['account'] as Record<string, unknown> | undefined;
       if (!a) return;
 
-      const link = item.querySelector<HTMLAnchorElement>('a[href*="/group/guest/"]');
+      // Use link.href (DOM property, always absolute) — live portal uses relative href attributes
+      const link = Array.from(item.querySelectorAll('a')).find(
+        (a): a is HTMLAnchorElement => (a as HTMLAnchorElement).href.includes('/group/guest/'),
+      ) as HTMLAnchorElement | undefined;
       result.push({
         number: (a['number'] as string) ?? '',
         maskedNumber: (a['maskedNumber'] as string) ?? '',

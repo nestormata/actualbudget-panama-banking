@@ -125,14 +125,18 @@ export class BGeneralConnector implements BankConnector {
             const sc = win.angular!.element(item).scope?.();
             const a = sc?.['account'] as Record<string, unknown> | undefined;
             if (!a?.['number']) return;
-            const link = item.querySelector<HTMLAnchorElement>('a[href*="/group/guest/"]');
+            // Use link.href (DOM property, always absolute) — live portal uses relative href attributes
+            const link = Array.from(item.querySelectorAll('a')).find(
+              (el) => (el as HTMLAnchorElement).href.includes('/group/guest/'),
+            ) as HTMLAnchorElement | undefined;
+            if (!link?.href) return; // skip items where ng-include partial hasn't rendered links yet
             results.push({
               number: (a['number'] as string) ?? '',
               maskedNumber: (a['maskedNumber'] as string) ?? '',
               name: (a['name'] as string) ?? '',
               classType: (a['classType'] as string) ?? '',
               currentBalance: (a['currentBalance'] as number) ?? 0,
-              href: link?.href ?? '',
+              href: link.href,
             });
           });
           return results.length > 0 ? results : null;
