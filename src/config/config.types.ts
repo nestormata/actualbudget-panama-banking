@@ -12,6 +12,17 @@ export interface BankConfig {
   bankId: string;
   /** Account mappings for this bank. */
   accounts: AccountMapping[];
+  /**
+   * Deduplication matching mode for the local import registry.
+   *
+   * - "loose" (default): a transaction is a duplicate if date + amount + payee all match.
+   *   Use when the bank portal does not provide stable transaction IDs.
+   *
+   * - "strict": a transaction is a duplicate only when date + amount + payee + bankTxId
+   *   all match. Requires the connector to supply bankTxId. Prevents false positives when
+   *   two different transactions happen to share the same date, amount, and payee text.
+   */
+  deduplication?: 'strict' | 'loose';
 }
 
 export interface Config {

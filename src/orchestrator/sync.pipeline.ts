@@ -99,7 +99,7 @@ async function processBankConfig(
         const raw = await connector.getTransactions(acctConfig.bankAccountId, fromDate, toDate);
         const canonical = connector.normalize(raw, acctConfig.bankAccountId);
 
-        const importResult = await importer.importTransactions(canonical, accountMapping);
+        const importResult = await importer.importTransactions(canonical, accountMapping, bankConfig.deduplication ?? 'loose');
         bankResult.accountsProcessed++;
         bankResult.transactionsAdded += importResult.added;
 

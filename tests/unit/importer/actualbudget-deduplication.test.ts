@@ -22,10 +22,8 @@ import type { CanonicalTransaction } from '../../../src/shared/types.js';
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const mockImportTransactions = actualApi.importTransactions as jest.MockedFunction<any>;
 
-const VALID_ID = (n: number) => n.toString(16).padStart(64, '0');
-
 function makeTx(id: string, accountId = 'acc-1'): CanonicalTransaction {
-  return { id, bankId: 'test-bank', accountId, date: '2026-03-01', amount: -1000, payee: 'Shop', notes: null };
+  return { id, bankId: 'test-bank', accountId, date: '2026-03-01', amount: -1000, payee: 'Shop', notes: null, bankTxId: null };
 }
 
 let tmpDir: string;
@@ -52,7 +50,7 @@ afterEach(() => {
 
 describe('ActualBudgetImporter deduplication', () => {
   it('imports new transactions and records them in the registry', async () => {
-    const tx = makeTx(VALID_ID(1));
+    const tx = makeTx('some-id');
     mockImportTransactions.mockResolvedValue({ added: [tx.id] });
 
     const result = await importer.importTransactions([tx], accountMapping);
@@ -63,13 +61,16 @@ describe('ActualBudgetImporter deduplication', () => {
   });
 
   it('skips transactions already in the registry', async () => {
-    const id = VALID_ID(1);
-    // Pre-seed the registry
+    // Pre-seed the registry with new human-readable format
     const regDir = path.join(tmpDir, 'registry', 'test-bank');
     fs.mkdirSync(regDir, { recursive: true });
-    fs.writeFileSync(path.join(regDir, 'acc-1.txt'), `${id}\n`);
+    fs.writeFileSync(
+      path.join(regDir, 'acc-1.txt'),
+      '# Import registry\n# Format: date|amount_cents|payee|bank_tx_id\n\n2026-03-01|-1000|Shop|\n',
+    );
 
-    const result = await importer.importTransactions([makeTx(id)], accountMapping);
+    const tx = makeTx('any-id');
+    const result = await importer.importTransactions([tx], accountMapping);
 
     expect(mockImportTransactions).not.toHaveBeenCalled();
     expect(result.deduplicated).toBe(1);
@@ -77,20 +78,24 @@ describe('ActualBudgetImporter deduplication', () => {
   });
 
   it('imports only the new transactions when some are already in the registry', async () => {
-    const oldId = VALID_ID(1);
-    const newId = VALID_ID(2);
-    // Pre-seed old ID
+    // Pre-seed one transaction (date/amount/payee match for first tx)
     const regDir = path.join(tmpDir, 'registry', 'test-bank');
     fs.mkdirSync(regDir, { recursive: true });
-    fs.writeFileSync(path.join(regDir, 'acc-1.txt'), `${oldId}\n`);
+    fs.writeFileSync(
+      path.join(regDir, 'acc-1.txt'),
+      '# Import registry\n# Format: date|amount_cents|payee|bank_tx_id\n\n2026-03-01|-1000|Shop|\n',
+    );
 
+    const newId = 'new-id';
+    const newTx = makeTx(newId, 'acc-1');
+    // Make the new tx distinct by different amount
+    const distinctTx: CanonicalTransaction = { ...newTx, id: newId, amount: -2000, payee: 'OtherShop' };
     mockImportTransactions.mockResolvedValue({ added: [newId] });
 
-    const result = await importer.importTransactions([makeTx(oldId), makeTx(newId)], accountMapping);
+    const result = await importer.importTransactions([makeTx('old-id'), distinctTx], accountMapping);
 
     expect(result.deduplicated).toBe(1);
     expect(result.added).toBe(1);
-    // Only the new transaction should have been sent to ActualBudget
     const payload = mockImportTransactions.mock.calls[0]?.[1] as { imported_id: string }[];
     expect(payload).toHaveLength(1);
     expect(payload[0]?.imported_id).toBe(newId);

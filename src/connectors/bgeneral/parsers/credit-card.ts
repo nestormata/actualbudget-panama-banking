@@ -85,6 +85,7 @@ function toRawTransactions(movements: CcMovement[], accountId: string): RawTrans
       isDebit: m.natureMovement === 'D',
       payee: m.description,
       notes: m.id ? `ref:${m.id}` : null,
+      bankTxId: m.id || null,
     };
   });
 }

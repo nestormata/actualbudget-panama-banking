@@ -11,6 +11,7 @@ describe('CanonicalTransaction', () => {
       amount: -1550,
       payee: 'Starbucks',
       notes: 'Coffee',
+      bankTxId: null,
     };
     expect(tx.amount).toBeLessThan(0);
   });
@@ -24,6 +25,7 @@ describe('CanonicalTransaction', () => {
       amount: -100,
       payee: 'Shop',
       notes: null,
+      bankTxId: null,
     };
     expect(debit.amount).toBeLessThan(0);
   });
@@ -37,6 +39,7 @@ describe('CanonicalTransaction', () => {
       amount: 5000,
       payee: 'Salary',
       notes: null,
+      bankTxId: null,
     };
     expect(credit.amount).toBeGreaterThan(0);
   });
@@ -50,6 +53,7 @@ describe('CanonicalTransaction', () => {
       amount: -100,
       payee: 'Test',
       notes: null,
+      bankTxId: null,
     };
     expect(tx.date).toMatch(/^\d{4}-\d{2}-\d{2}$/);
   });
@@ -63,6 +67,7 @@ describe('CanonicalTransaction', () => {
       amount: -1,
       payee: 'P',
       notes: null,
+      bankTxId: null,
     };
     expect(tx.notes).toBeNull();
   });

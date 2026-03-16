@@ -14,6 +14,8 @@ export interface CanonicalTransaction {
   payee: string;
   /** Raw description from the bank portal, or null. */
   notes: string | null;
+  /** Portal-provided stable transaction ID (e.g. movement.id from BGeneral). Null if the portal does not supply one. */
+  bankTxId: string | null;
 }
 
 /** Raw transaction as returned directly by a bank connector before normalization. */
@@ -30,6 +32,8 @@ export interface RawTransaction {
   payee: string;
   /** Full raw description, or null/undefined. */
   notes: string | null | undefined;
+  /** Portal-provided stable transaction ID (e.g. movement.id from BGeneral). Omit if not available. */
+  bankTxId?: string | null;
 }
 
 /** A bank account as returned by a connector. */

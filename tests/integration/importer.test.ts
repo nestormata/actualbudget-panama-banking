@@ -21,6 +21,7 @@ const makeTransaction = (overrides: Partial<CanonicalTransaction> = {}): Canonic
   amount: -1000,
   payee: 'Test Merchant',
   notes: 'Integration test transaction',
+  bankTxId: null,
   ...overrides,
 });
 

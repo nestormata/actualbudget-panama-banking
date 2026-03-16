@@ -70,6 +70,7 @@ export function normalizeTransactions(
       amount,
       payee,
       notes: r.notes ?? null,
+      bankTxId: r.bankTxId ?? null,
     };
   });
 }

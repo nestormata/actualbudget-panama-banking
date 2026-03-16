@@ -58,10 +58,12 @@ export class ActualBudgetImporter {
    * Transactions already present in the local registry are skipped.
    * @param transactions List of normalized transactions to import
    * @param accountMapping Map of bankAccountId → actualBudgetAccountId
+   * @param dedupMode "loose" (default) or "strict" — controls registry matching
    */
   async importTransactions(
     transactions: CanonicalTransaction[],
     accountMapping: Map<string, string>,
+    dedupMode: 'strict' | 'loose' = 'loose',
   ): Promise<ImportResult> {
     const result: ImportResult = { added: 0, skipped: 0, deduplicated: 0, errors: [] };
 
@@ -90,7 +92,7 @@ export class ActualBudgetImporter {
         const registry = new ImportRegistry(this.registryDir, txs[0]?.bankId ?? 'unknown', bankAccountId);
         registry.load();
 
-        const newTxs = txs.filter((tx) => !registry.has(tx.id));
+        const newTxs = txs.filter((tx) => !registry.has(tx, dedupMode));
         const deduplicated = txs.length - newTxs.length;
         result.deduplicated += deduplicated;
 
@@ -118,8 +120,8 @@ export class ActualBudgetImporter {
         const added = importResult.added?.length ?? 0;
         result.added += added;
 
-        // Record newly imported IDs in the registry
-        registry.addAll(newTxs.map((tx) => tx.id));
+        // Record newly imported transactions in the registry
+        registry.addAll(newTxs);
 
         this.logger.info(
           { bankAccountId, actualAccountId, added },

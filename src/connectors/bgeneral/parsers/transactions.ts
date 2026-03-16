@@ -63,6 +63,7 @@ export async function parseTransactions(page: Page, accountId: string): Promise<
       isDebit: m.natureMovement === 'D',
       payee: m.description,
       notes: m.id ? `ref:${m.id}` : null,
+      bankTxId: m.id || null,
     };
   });
 }
