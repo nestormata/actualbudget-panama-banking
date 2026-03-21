@@ -53,17 +53,27 @@ function lineToEntry(line: string): RegistryEntry | null {
 }
 
 /**
+ * Normalize a payee string for use in dedup keys.
+ * Collapses repeated whitespace, lowercases, and truncates to avoid
+ * mismatches caused by portal-side text truncation across runs.
+ */
+function normalizePayeeForKey(payee: string): string {
+  return payee.trim().replace(/\s+/g, ' ').toLowerCase().slice(0, 50);
+}
+
+/**
  * Build a lookup key for an entry under the given deduplication mode.
  *
- * "loose":  date + amount + payee  (bankTxId ignored)
- * "strict": date + amount + payee + bankTxId  (all fields must match)
+ * "loose":  date + amount + normalizedPayee  (bankTxId ignored)
+ * "strict": date + amount + normalizedPayee + bankTxId  (all fields must match)
  *           If either side has no bankTxId, falls back to loose matching.
  */
 function entryKey(e: RegistryEntry, mode: 'strict' | 'loose'): string {
+  const normPayee = normalizePayeeForKey(e.payee);
   if (mode === 'strict' && e.bankTxId) {
-    return `s|${e.date}|${e.amount}|${e.payee}|${e.bankTxId}`;
+    return `s|${e.date}|${e.amount}|${normPayee}|${e.bankTxId}`;
   }
-  return `l|${e.date}|${e.amount}|${e.payee}`;
+  return `l|${e.date}|${e.amount}|${normPayee}`;
 }
 
 /**
@@ -88,6 +98,8 @@ export class ImportRegistry {
   private entries: RegistryEntry[] = [];
   private looseIndex = new Set<string>();
   private strictIndex = new Set<string>();
+  /** Index of bankTxId values — enables matching by portal ID alone. */
+  private txIdIndex = new Set<string>();
   private loaded = false;
 
   constructor(dataDir: string, bankId: string, accountId: string) {
@@ -108,6 +120,7 @@ export class ImportRegistry {
       this.entries.push(entry);
       this.looseIndex.add(entryKey(entry, 'loose'));
       this.strictIndex.add(entryKey(entry, 'strict'));
+      if (entry.bankTxId) this.txIdIndex.add(entry.bankTxId);
     }
   }
 
@@ -115,9 +128,19 @@ export class ImportRegistry {
    * Check whether a canonical transaction is already in the registry.
    * @param tx   The transaction to look up.
    * @param mode "strict" or "loose" — controls which fields must match.
+   *
+   * Match priority:
+   * 1. bankTxId-only match (if tx has bankTxId and it exists in registry) — always wins.
+   *    This handles date-shift and payee-change scenarios.
+   * 2. Loose match: date + amount + normalizedPayee.
+   * 3. Strict match: date + amount + normalizedPayee + bankTxId (only in strict mode).
    */
   has(tx: CanonicalTransaction, mode: 'strict' | 'loose' = 'loose'): boolean {
     this.load();
+
+    // Priority 1: bankTxId-only match — handles date/payee instability
+    if (tx.bankTxId && this.txIdIndex.has(tx.bankTxId)) return true;
+
     const entry: RegistryEntry = {
       date: tx.date,
       amount: tx.amount,
@@ -141,6 +164,7 @@ export class ImportRegistry {
       this.entries.push(entry);
       this.looseIndex.add(entryKey(entry, 'loose'));
       this.strictIndex.add(entryKey(entry, 'strict'));
+      if (entry.bankTxId) this.txIdIndex.add(entry.bankTxId);
     }
     this.save();
   }

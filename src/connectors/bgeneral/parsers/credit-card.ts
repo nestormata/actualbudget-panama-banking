@@ -74,9 +74,9 @@ async function extractMovements(
 function toRawTransactions(movements: CcMovement[], accountId: string): RawTransaction[] {
   return movements.map((m): RawTransaction => {
     const d = new Date(m.dateMovement);
-    const day = String(d.getDate()).padStart(2, '0');
-    const month = String(d.getMonth() + 1).padStart(2, '0');
-    const year = d.getFullYear();
+    const day = String(d.getUTCDate()).padStart(2, '0');
+    const month = String(d.getUTCMonth() + 1).padStart(2, '0');
+    const year = d.getUTCFullYear();
 
     return {
       accountId,
@@ -121,5 +121,17 @@ export async function parseCreditCardTransactions(
   const stmtMovements = await extractMovements(page, SEL.STATEMENT_TX_ROW, 'statementMovements');
   const stmtTxs = toRawTransactions(stmtMovements, accountId);
 
-  return [...currentTxs, ...stmtTxs];
+  // Deduplicate across tabs by bankTxId — a transaction migrating from
+  // current to statement may appear in both with potentially different dates.
+  const seenIds = new Set<string>();
+  const merged: RawTransaction[] = [];
+  for (const tx of [...currentTxs, ...stmtTxs]) {
+    if (tx.bankTxId) {
+      if (seenIds.has(tx.bankTxId)) continue;
+      seenIds.add(tx.bankTxId);
+    }
+    merged.push(tx);
+  }
+
+  return merged;
 }

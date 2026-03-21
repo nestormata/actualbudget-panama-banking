@@ -95,6 +95,64 @@ describe('ImportRegistry — strict mode', () => {
   });
 });
 
+// ── bankTxId-only matching (handles date/payee instability) ──────────────────
+
+describe('ImportRegistry — bankTxId-only matching', () => {
+  it('matches when bankTxId is the same but date has shifted (BGeneral pending→posted)', () => {
+    const reg = new ImportRegistry(tmpDir, 'test-bank', 'acc-1');
+    reg.addAll([makeTx({ date: '2026-03-14', amount: -454, payee: 'UBER RIDES', bankTxId: 'MT260730111000010003873' })]);
+    // Same bankTxId, different date (shifted by 1 day)
+    expect(reg.has(makeTx({ date: '2026-03-15', amount: -454, payee: 'UBER RIDES', bankTxId: 'MT260730111000010003873' }), 'strict')).toBe(true);
+    expect(reg.has(makeTx({ date: '2026-03-15', amount: -454, payee: 'UBER RIDES', bankTxId: 'MT260730111000010003873' }), 'loose')).toBe(true);
+  });
+
+  it('matches when bankTxId is the same but date AND payee differ (credit card migration)', () => {
+    const reg = new ImportRegistry(tmpDir, 'test-bank', 'acc-1');
+    reg.addAll([makeTx({ date: '2026-03-06', amount: -22309, payee: 'WWW.LIDR.CO', bankTxId: 'REF123' })]);
+    // Same bankTxId, different date AND potentially different payee
+    expect(reg.has(makeTx({ date: '2026-03-18', amount: -22309, payee: 'WWW.LIDR.CO', bankTxId: 'REF123' }), 'strict')).toBe(true);
+  });
+
+  it('does NOT match when bankTxId differs (even if amount/payee match)', () => {
+    const reg = new ImportRegistry(tmpDir, 'test-bank', 'acc-1');
+    reg.addAll([makeTx({ date: '2026-03-14', amount: -454, payee: 'UBER RIDES', bankTxId: 'TX-AAA' })]);
+    // Different bankTxId, different date — no match (neither txIdIndex nor loose/strict)
+    expect(reg.has(makeTx({ date: '2026-03-15', amount: -454, payee: 'UBER RIDES', bankTxId: 'TX-BBB' }), 'strict')).toBe(false);
+  });
+
+  it('bankTxId-only matching works after round-trip (save + reload)', () => {
+    const reg = new ImportRegistry(tmpDir, 'test-bank', 'acc-1');
+    reg.addAll([makeTx({ date: '2026-03-14', amount: -454, payee: 'UBER RIDES', bankTxId: 'MT260730111000010003873' })]);
+
+    const reg2 = new ImportRegistry(tmpDir, 'test-bank', 'acc-1');
+    expect(reg2.has(makeTx({ date: '2026-03-15', amount: -454, payee: 'UBER RIDES', bankTxId: 'MT260730111000010003873' }), 'strict')).toBe(true);
+  });
+});
+
+// ── payee normalization for dedup keys ───────────────────────────────────────
+
+describe('ImportRegistry — payee normalization', () => {
+  it('matches payee case-insensitively', () => {
+    const reg = new ImportRegistry(tmpDir, 'test-bank', 'acc-1');
+    reg.addAll([makeTx({ payee: 'SUPERMERCADO REY' })]);
+    expect(reg.has(makeTx({ payee: 'supermercado rey' }), 'loose')).toBe(true);
+  });
+
+  it('matches payee with different whitespace', () => {
+    const reg = new ImportRegistry(tmpDir, 'test-bank', 'acc-1');
+    reg.addAll([makeTx({ payee: 'FARMA  VALUE   ALBROOK' })]);
+    expect(reg.has(makeTx({ payee: 'FARMA VALUE ALBROOK' }), 'loose')).toBe(true);
+  });
+
+  it('matches payee truncated beyond 50 chars (GlobalBank instability)', () => {
+    const reg = new ImportRegistry(tmpDir, 'test-bank', 'acc-1');
+    const longPayee = 'FARMA VALUE ALBROOK>TERRAZAS DE ALBROOPA PANAMA CITY DISTRICT';
+    const truncatedPayee = 'FARMA VALUE ALBROOK>TERRAZAS DE ALBROOPA PANAMA CI';
+    reg.addAll([makeTx({ payee: longPayee })]);
+    expect(reg.has(makeTx({ payee: truncatedPayee }), 'loose')).toBe(true);
+  });
+});
+
 // ── file format — human readable ─────────────────────────────────────────────
 
 describe('ImportRegistry file format', () => {

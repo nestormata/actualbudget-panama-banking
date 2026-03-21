@@ -36,6 +36,8 @@ services:
       context: .
       target: runtime
       network: host
+    environment:
+      - TZ=America/Panama
     env_file:
       - .env
     volumes:
